@@ -64,6 +64,7 @@ export default async function handler(req, res) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const customerEmail = session.customer_details?.email;
+    const customerName = session.customer_details?.name || 'Valued Customer';
 
     if (!customerEmail) {
       console.error('No email found in session');
@@ -97,41 +98,50 @@ export default async function handler(req, res) {
       // 3. Send Email via Resend
       console.log('Attempting to send email...');
       const { error: emailError } = await resend.emails.send({
-        from: 'FontPair AI <onboarding@resend.dev>', // Update with your verified domain if available
+        from: 'FontPair AI <license@fontpairai.com>',
         to: [customerEmail],
         subject: 'Your FontPair AI License Key',
         html: `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <style>
-              body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #EBE6D9; color: #2D4743; margin: 0; padding: 40px; }
-              .container { max-width: 600px; margin: 0 auto; background-color: #F2EFE8; padding: 40px; border-radius: 8px; border: 1px solid #D4CAB6; }
-              h1 { font-family: 'Courier New', Courier, monospace; color: #2D4743; letter-spacing: -0.5px; }
-              .key-box { background-color: #2D4743; color: #F2EFE8; padding: 20px; text-align: center; font-family: 'Courier New', Courier, monospace; font-size: 24px; letter-spacing: 2px; margin: 30px 0; border-radius: 4px; }
-              .footer { margin-top: 40px; font-size: 12px; color: #6B6560; text-align: center; }
-              .highlight { color: #E67E22; font-weight: bold; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>Welcome to the Studio.</h1>
-              <p>Thank you for choosing <span class="highlight">FontPair AI</span>. You have taken a significant step towards typography mastery.</p>
-              <p>Below is your personal license key. It is your passport to clarity in a sea of chaotic choices.</p>
-              
-              <div class="key-box">
-                ${licenseKey}
-              </div>
-              
-              <p>To activate, simply enter this key in the FontPair AI application settings.</p>
-              
-              <div class="footer">
-                <p>FontPair AI &mdash; The Intelligent Typography Assistant</p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `,
+    <!DOCTYPE html>
+    <html>
+    <body style="background-color: #F2EFE8; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px 0;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        
+        <div style="background-color: #008080; padding: 30px; text-align: center;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">FontPair AI</h1>
+        </div>
+
+        <div style="padding: 40px; color: #1A3431;">
+          <p style="font-size: 18px; margin-bottom: 20px;">Hi ${customerName},</p>
+          <p style="line-height: 1.6; margin-bottom: 30px;">Thank you for joining the studio. Your perpetual license is ready.</p>
+          
+          <div style="background-color: #F8F5EF; border: 2px dashed #008080; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+            <p style="margin: 0 0 10px 0; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px;">Your License Key</p>
+            <code style="font-family: monospace; font-size: 24px; font-weight: bold; color: #D47C2E; letter-spacing: 2px;">${licenseKey}</code>
+          </div>
+
+          <div style="text-align: center; margin-bottom: 40px;">
+            <a href="https://app.fontpairai.com" style="background-color: #D47C2E; color: #ffffff; text-decoration: none; padding: 15px 30px; border-radius: 5px; font-weight: bold; display: inline-block;">Launch App & Activate</a>
+          </div>
+
+          <div style="background-color: #e6f2f2; padding: 20px; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold; margin-bottom: 10px;">Quick Start:</p>
+            <ol style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.6;">
+              <li>Click the button above to open the app.</li>
+              <li>Paste your key into the activation screen.</li>
+              <li>Start pairing fonts.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div style="padding: 20px; text-align: center; background-color: #1A3431; color: #8B7355; font-size: 12px;">
+          <p style="margin: 0;">A Neon Beacon Product</p>
+          <p style="margin: 5px 0 0 0;">Invoice ID: ${session.id}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `,
       });
 
       if (emailError) {
