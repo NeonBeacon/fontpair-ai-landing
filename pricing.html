@@ -283,7 +283,7 @@
           // I will use the absolute URL as requested, but comment that relative might be better if on the same domain.
           // Actually, if this IS the landing page, fetching from "app.fontpairai.com" is CORS unless configured.
           // I will stick to the exact instruction: https://app.fontpairai.com/api/create-checkout
-          const response = await fetch('https://app.fontpairai.com/api/create-checkout', {
+          const response = await fetch('/api/create-checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
           });
