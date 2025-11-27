@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FontPair AI - AI-Powered Font Pairing & Typography Analysis. Upload fonts or images for expert AI evaluation, glyph comparison, and professional pairing recommendations."
+    />
+    <title>FontPair AI - AI-Powered Font Pairing & Typography Analysis</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Rubik:wght@400;500;700&family=Playfair+Display:wght@900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lenis Smooth Scroll CSS - REQUIRED -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lenis@1.3.13/dist/lenis.css"
+    />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="./output.css" />
+
+    
+  </head>
+  <body>
+    <div class="logo-island" id="logo-island">
+      <a href="/" class="header-logo" aria-label="FontPair AI Home">
+          <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+      </a>
+    </div>
+    <header class="header-floating" id="page-header">
+      <nav class="header-nav container">
+
+        <div class="header-links-desktop">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="docs.html">Docs</a>
+          <a href="get-started.html" class="btn btn-ghost btn-small">Get Started</a>
+        </div>
+
+        <button
+          class="header-menu-toggle"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <img src="./assets/favicon.svg" alt="Menu" />
+        </button>
+      </nav>
+
+      <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+        <div class="mobile-menu-content">
+          <div class="mobile-menu-header">
+            <a href="/" class="header-logo" aria-label="FontPair AI Home">
+              <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+            </a>
+            <button
+              class="header-menu-toggle"
+              aria-label="Close menu"
+              aria-expanded="true"
+            >
+              <img src="./assets/favicon.svg" alt="Close Menu" />
+            </button>
+          </div>
+          <div class="mobile-menu-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="docs.html">Docs</a>
+            <a href="get-started.html" class="btn btn-ghost">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+      <div class="desk-objects pointer-events-none absolute inset-0 z-0 overflow-hidden">
+
+          <img src="./assets/tablet.webp"
+               alt=""
+               class="desk-item desk-tablet"
+               style="top: 10%; left: -5%; transform: rotate(5deg);">
+
+          <img src="./assets/coffee.webp"
+               alt=""
+               class="desk-item desk-coffee"
+               style="top: -2%; right: 2%; transform: rotate(45deg);">
+
+          <img src="./assets/pencil.webp"
+               alt=""
+               class="desk-item desk-pencil"
+               style="bottom: 5%; left: 15%; transform: rotate(15deg);">
+
+          <img src="./assets/eraser.webp"
+               alt=""
+               class="desk-item desk-eraser"
+               style="bottom: 15%; left: 10%; transform: rotate(-10deg);">
+
+          <div class="post-it absolute top-24 left-8 rotate-[-5deg] shadow-md">
+            <span class="handwritten">serif?</span>
+          </div>
+
+          <div class="post-it-pink absolute bottom-32 right-10 rotate-6 shadow-md">
+             <span class="handwritten">x-height</span>
+          </div>
+      </div>
+
+
+      <div class="container relative z-10">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>
+              Go Beyond<br />
+              Font Identification.
+            </h1>
+            <p class="lead">
+              Upload fonts or images to get expert AI evaluation, compare
+              glyphs, analyze accessibility, and receive professional pairing
+              recommendations powered by Gemini AI.
+            </p>
+            <div class="hero-cta">
+              <a href="#" class="btn btn-primary">Get Started</a>
+              <a href="#" class="btn btn-secondary">View Demo</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+              <div class="hero-letter">A</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Powerful Features for Designers</h2>
+          <p class="lead">
+            Everything you need to make informed typography decisions with
+            confidence.
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="card feature-card">
+            <div class="icon-wrapper">
+              <img src="./assets/magnifying glass.svg" alt="Font Analysis" class="icon-svg">
+            </div>
+            <h3>Font Analysis</h3>
+            <p>
+              Upload .ttf/.otf files or images for comprehensive 14-point
+              detailed analysis covering classification, characteristics,
+              readability, accessibility, and more.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="icon-wrapper">
+              <img src="./assets/Pairing.svg" alt="Pairing Critique" class="icon-svg">
+            </div>
+            <h3>Pairing Critique</h3>
+            <p>
+              Receive AI-powered scoring from 1-10 with detailed pros and cons
+              for your font combinations. Get professional recommendations for
+              improvement.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="icon-wrapper">
+              <img src="./assets/Glyph Comparison.svg" alt="Glyph Comparison" class="icon-svg">
+            </div>
+            <h3>Glyph Comparison</h3>
+            <p>
+              Visual legibility analysis comparing similar characters (I vs l vs
+              1, O vs 0). Ensure your fonts work in real-world scenarios.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="icon-wrapper">
+              <img src="./assets/License System.svg" alt="License System" class="icon-svg">
+            </div>
+            <h3>License System</h3>
+            <p>
+              One-time payment with multi-device support. No subscriptions, no
+              recurring fees. Pay once, use everywhere.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h2>How It Works</h2>
+          <p class="lead">Three simple steps to typography perfection.</p>
+        </div>
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3>Upload</h3>
+            <p>
+              Upload font files (.ttf, .otf), images, or select from Google
+              Fonts library for instant analysis.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3>Analyze</h3>
+            <p>
+              Our AI processes typography, accessibility, pairing compatibility,
+              and glyph characteristics using Gemini AI.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3>Perfect</h3>
+            <p>
+              Get professional pairing recommendations, detailed reports, and
+              actionable insights to elevate your design.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECTOR'S BRAIN SECTION -->
+    <section class="director-brain">
+      <div class="container">
+        <div class="section-header">
+          <h2>The "Senior Director" Advantage</h2>
+        </div>
+        <div class="director-grid">
+          <!-- Card 1: The Brain -->
+          <div class="director-card">
+            <div class="director-icon">
+              <img src="./assets/Constitution.svg" alt="The Constitution" class="icon-svg">
+            </div>
+            <h3>The Constitution</h3>
+            <p>
+              Unlike generic AI, FontPair is trained on a 20,000-word proprietary framework of optical physics, history, and semiotics. It doesn't guess; it knows.
+            </p>
+          </div>
+          <!-- Card 2: The Matrix -->
+          <div class="director-card">
+            <div class="director-icon">
+              <img src="./assets/decisionMatrix.svg" alt="The Decision Matrix" class="icon-svg">
+            </div>
+            <h3>The Decision Matrix</h3>
+            <p>
+              Stop A/B testing in your head. Compare up to 8 typefaces simultaneously to find the mathematically perfect match for your hierarchy.
+            </p>
+          </div>
+          <!-- Card 3: The Audit -->
+          <div class="director-card">
+            <div class="director-icon">
+              <img src="./assets/safetyNet.svg" alt="The Safety Net" class="icon-svg">
+            </div>
+            <h3>The Safety Net</h3>
+            <p>
+              Automatic audits for "Impostor Shapes" (I/l/1), contrast failures, and accessibility risks. Ship with total confidence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARGET AUDIENCE SECTION -->
+    <section class="audience">
+      <div class="container">
+        <div class="section-header">
+          <h2>Built for Professionals</h2>
+          <p class="lead">
+            Whether you're designing, developing, or simply passionate about
+            typography.
+          </p>
+        </div>
+        <div class="audience-grid">
+          <div class="card card-light">
+            <div class="icon-wrapper">
+              <img src="./assets/Professional Designers.svg" alt="Professional Designers" class="icon-svg">
+            </div>
+            <h3>Professional Designers</h3>
+            <p>
+              Make confident typography decisions with AI-backed analysis. Save
+              time on font pairing research and get instant professional
+              feedback on your choices.
+            </p>
+          </div>
+          <div class="card card-light">
+            <div class="icon-wrapper">
+              <img src="./assets/Web Developers.svg" alt="Web Developers" class="icon-svg">
+            </div>
+            <h3>Web Developers</h3>
+            <p>
+              Ensure accessibility compliance and optimal readability for your
+              projects. Get technical insights on font performance and rendering
+              characteristics.
+            </p>
+          </div>
+          <div class="card card-light">
+            <div class="icon-wrapper">
+              <img src="./assets/Typography Enthusiasts.svg" alt="Typography Enthusiasts" class="icon-svg">
+            </div>
+            <h3>Typography Enthusiasts</h3>
+            <p>
+              Deepen your understanding of typeface design, classification, and
+              pairing principles. Learn from AI-powered insights and expand your
+              typographic knowledge.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH STACK SECTION -->
+    <section class="tech-stack">
+      <div class="container">
+        <div class="section-header">
+          <h2>Built with Modern Technology</h2>
+          <p class="lead">Powered by cutting-edge tools and frameworks.</p>
+        </div>
+        <div class="tech-badges">
+          <div class="tech-badge">React</div>
+          <div class="tech-badge">TypeScript</div>
+          <div class="tech-badge">Vite</div>
+          <div class="tech-badge">Gemini AI</div>
+          <div class="tech-badge">Supabase</div>
+          <div class="tech-badge">Chrome AI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="final-cta">
+      <div class="container">
+        <h2>Start Analyzing Fonts Today</h2>
+        <p>
+          Join designers and developers making smarter typography decisions with
+          AI-powered insights.
+        </p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-primary">Get Started Now</a>
+          <a
+            href="#"
+            class="btn btn-secondary"
+            style="color: var(--text-light); border-color: var(--teal-light)"
+            >Read Documentation</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="/" class="footer-logo" aria-label="FontPair AI Home">
+              <div class="footer-logo-backing">
+                <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+              </div>
+            </a>
+          </div>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">GitHub</a>
+            <a href="#">License Setup</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/gsap.min.js"></script>
+    <script src="./js/ScrollTrigger.min.js"></script>
+    <script src="./js/SplitText.min.js"></script>
+    <script src="./js/lenis.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("🚀 SOTD Local Engine Starting...");
+
+        // 1. Initialize Lenis (Smooth Scroll)
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. Register GSAP
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        // Sync Lenis & ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // 3. Hero Animation
+        const heroH1 = document.querySelector(".hero-text h1");
+        if (heroH1) {
+           const split = new SplitText(heroH1, { type: "lines", linesClass: "line-child" });
+           new SplitText(heroH1, { type: "lines", linesClass: "line-parent" });
+
+           gsap.set(".line-child", { yPercent: 100 });
+           gsap.set(".hero-text .lead, .hero-cta", { opacity: 0, y: 20 });
+           gsap.set(".hero-letter", { scale: 0.8, rotation: -15, opacity: 0 });
+
+           const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+           tl.to(split.lines, {
+               yPercent: 0,
+               duration: 1.4,
+               ease: "back.out(1.2)", // Creates slight overshoot bounce
+               stagger: 0.15,
+               delay: 0.2
+             })
+             .to(".hero-text .lead", { opacity: 1, y: 0, duration: 1 }, "-=1.0")
+             .to(".hero-cta", { opacity: 1, y: 0, duration: 1 }, "-=0.8")
+             .to(".hero-letter", { scale: 1, rotation: 0, opacity: 1, duration: 1.4, ease: "elastic.out(1, 0.5)" }, "-=1.2");
+        }
+
+        // 4. Scroll Reveals
+        const cards = gsap.utils.toArray(".card, .ai-mode-card, .tech-badge, .pricing-card, .step");
+        gsap.set(cards, { opacity: 0, y: 50 });
+
+        ScrollTrigger.batch(cards, {
+          start: "top 85%",
+          onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "power3.out", overwrite: true })
+        });
+
+        // Mouse parallax for desk objects
+        const hero = document.querySelector('.hero');
+        const deskItems = {
+          tablet: { el: document.querySelector('.desk-tablet'), strength: 0 },
+          coffee: { el: document.querySelector('.desk-coffee'), strength: 3 },
+          pencil: { el: document.querySelector('.desk-pencil'), strength: 8 },
+          eraser: { el: document.querySelector('.desk-eraser'), strength: 6 },
+          postItYellow: { el: document.querySelector('.post-it'), strength: 15 },
+          postItPink: { el: document.querySelector('.post-it-pink'), strength: 12 },
+          heroCard: { el: document.querySelector('.hero-visual'), strength: 2, rotate: true }
+        };
+
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const mouseX = e.clientX - rect.left - centerX;
+          const mouseY = e.clientY - rect.top - centerY;
+
+          Object.values(deskItems).forEach(item => {
+            if (!item.el || item.strength === 0) return;
+            
+            const x = (mouseX / centerX) * item.strength;
+            const y = (mouseY / centerY) * item.strength;
+            
+            if (item.rotate) {
+              gsap.to(item.el, {
+                x: x,
+                y: y,
+                rotationY: x * 0.5,
+                rotationX: -y * 0.5,
+                duration: 0.8,
+                ease: 'power2.out'
+              });
+            } else {
+              gsap.to(item.el, {
+                x: x,
+                y: y,
+                duration: 0.8,
+                ease: 'power2.out'
+              });
+            }
+          });
+        });
+
+        // Reset on mouse leave
+        hero.addEventListener('mouseleave', () => {
+          Object.values(deskItems).forEach(item => {
+            if (!item.el) return;
+            gsap.to(item.el, {
+              x: 0,
+              y: 0,
+              rotationY: 0,
+              rotationX: 0,
+              duration: 1,
+              ease: 'elastic.out(1, 0.5)'
+            });
+          });
+        });
+
+
+      });
+    </script>

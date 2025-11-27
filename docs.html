@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FontPair AI Documentation - Setup, API Key, Features, and Troubleshooting."
+    />
+    <title>Documentation - FontPair AI</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Rubik:wght@400;500;700&family=Playfair+Display:wght@900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="./output.css" />
+
+    <style>
+      /* Documentation Layout */
+      .docs-container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar */
+      .docs-sidebar {
+        width: 280px;
+        background-color: var(--paper-light);
+        border-right: 1px solid rgba(45, 71, 67, 0.1);
+        padding: var(--space-6);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        z-index: 40; /* Below header */
+        padding-top: 140px; /* Clear fixed header */
+      }
+
+      .docs-sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .docs-sidebar li {
+        margin-bottom: var(--space-2);
+      }
+
+      .docs-sidebar a {
+        display: block;
+        padding: var(--space-2) var(--space-4);
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        transition: all 0.2s ease;
+        font-weight: 500;
+        border-left: 2px solid transparent;
+      }
+
+      .docs-sidebar a:hover {
+        color: var(--teal-dark);
+        background-color: rgba(45, 71, 67, 0.05);
+      }
+
+      .docs-sidebar a.active {
+        color: var(--teal-dark);
+        border-left-color: var(--accent);
+        background-color: rgba(45, 71, 67, 0.05);
+        font-weight: 600;
+      }
+
+      /* Main Content */
+      .docs-content {
+        flex: 1;
+        padding: var(--space-8);
+        padding-top: 140px; /* Clear fixed header */
+        margin-left: 280px; /* Sidebar width */
+        background-color: var(--paper-base);
+        max-width: 100%;
+      }
+
+      .docs-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .docs-section {
+        margin-bottom: var(--space-12);
+        scroll-margin-top: 160px; /* For smooth scroll offset */
+      }
+
+      .docs-section h2 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        color: var(--teal-dark);
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-2);
+        border-bottom: 1px solid rgba(45, 71, 67, 0.1);
+      }
+
+      .docs-section h3 {
+        font-size: 1.5rem;
+        margin-top: var(--space-6);
+        margin-bottom: var(--space-3);
+        color: var(--teal-medium);
+      }
+
+      .docs-section p {
+        margin-bottom: var(--space-4);
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      .docs-section ul {
+        list-style: disc;
+        padding-left: var(--space-6);
+        margin-bottom: var(--space-4);
+        color: var(--text-secondary);
+      }
+      
+      .docs-section li {
+        margin-bottom: var(--space-2);
+      }
+
+      /* Code Blocks */
+      code {
+        font-family: var(--font-mono);
+        background-color: rgba(45, 71, 67, 0.08);
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: var(--teal-dark);
+      }
+
+      pre {
+        background-color: #052222;
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+        overflow-x: auto;
+        margin-bottom: var(--space-6);
+        position: relative; /* For copy button positioning */
+      }
+
+      pre code {
+        background-color: transparent;
+        padding: 0;
+        color: #f0f0f0;
+        font-size: 0.9rem;
+        display: block; /* Ensure code block takes full width */
+      }
+
+      /* Copy Button */
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--teal-light);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .copy-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+
+      /* Table */
+      .docs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: var(--space-6);
+      }
+
+      .docs-table th, .docs-table td {
+        text-align: left;
+        padding: var(--space-3);
+        border-bottom: 1px solid rgba(45, 71, 67, 0.1);
+      }
+      
+      .docs-table th {
+        color: var(--teal-dark);
+        font-weight: 600;
+      }
+
+      .docs-table td {
+        color: var(--text-secondary);
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .docs-sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+          width: 80%;
+          max-width: 300px;
+          box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .docs-sidebar.open {
+          transform: translateX(0);
+        }
+
+        .docs-content {
+          margin-left: 0;
+          padding-inline: var(--space-4);
+        }
+        
+        .mobile-toc-toggle {
+          display: block;
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: var(--accent);
+          color: white;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          cursor: pointer;
+          font-size: 1.5rem;
+        }
+      }
+      
+      @media (min-width: 1025px) {
+        .mobile-toc-toggle {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-island" id="logo-island">
+      <a href="/" class="header-logo" aria-label="FontPair AI Home">
+          <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+      </a>
+    </div>
+    <header class="header-floating" id="page-header">
+      <nav class="header-nav container">
+
+        <div class="header-links-desktop">
+          <a href="index.html#features">Features</a>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="docs.html">Docs</a>
+          <a href="get-started.html" class="btn btn-primary btn-small">Get Started</a>
+        </div>
+
+        <button
+          class="header-menu-toggle"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <img src="./assets/favicon.svg" alt="Menu" />
+        </button>
+      </nav>
+
+      <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+        <div class="mobile-menu-content">
+          <div class="mobile-menu-header">
+            <a href="/" class="header-logo" aria-label="FontPair AI Home">
+              <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+            </a>
+            <button
+              class="header-menu-toggle"
+              aria-label="Close menu"
+              aria-expanded="true"
+            >
+              <img src="./assets/favicon.svg" alt="Close Menu" />
+            </button>
+          </div>
+          <div class="mobile-menu-links">
+            <a href="index.html#features">Features</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="docs.html">Docs</a>
+            <a href="get-started.html" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-container">
+      <!-- Sidebar Navigation -->
+      <aside class="docs-sidebar" id="docs-sidebar">
+        <nav>
+          <ul>
+            <li><a href="#getting-started" class="active">Getting Started</a></li>
+            <li><a href="#api-setup">API Key Setup</a></li>
+            <li><a href="#font-analysis">Font Analysis</a></li>
+            <li><a href="#pairing-critique">Pairing Critique</a></li>
+            <li><a href="#glyph-comparison">Glyph Comparison</a></li>
+            <li><a href="#exporting">Exporting (PDF & CSS)</a></li>
+            <li><a href="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Mobile Toggle for Sidebar -->
+      <div class="mobile-toc-toggle" id="toc-toggle" aria-label="Toggle Table of Contents">
+        ☰
+      </div>
+
+      <!-- Main Content -->
+      <main class="docs-content">
+        <div class="docs-wrapper">
+          
+          <!-- Getting Started -->
+          <section id="getting-started" class="docs-section">
+            <h2>Getting Started</h2>
+            <p>Welcome to FontPair AI. This tool is designed to help professional designers and developers analyze typography, find perfect pairings, and ensure accessibility compliance using advanced AI.</p>
+            <p>To begin, you'll need to download the application for your operating system and set up your API key.</p>
+            <a href="get-started.html" class="btn btn-primary btn-small">Go to Setup Guide →</a>
+          </section>
+
+          <!-- API Key Setup -->
+          <section id="api-setup" class="docs-section">
+            <h2>API Key Setup</h2>
+            <p>FontPair AI operates using your own Google Gemini API key. This ensures your data privacy and eliminates recurring subscription fees.</p>
+            <h3>How to get a key</h3>
+            <ol style="list-style: decimal; padding-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              <li>Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--accent); text-decoration: underline;">Google AI Studio</a>.</li>
+              <li>Click "Create API Key".</li>
+              <li>Copy the key string (starts with <code>AIza...</code>).</li>
+            </ol>
+            <h3>Adding it to FontPair AI</h3>
+            <p>Open the application, go to <strong>Settings > API Configuration</strong>, and paste your key into the input field. Click "Verify & Save" to confirm it's working.</p>
+          </section>
+
+          <!-- Font Analysis -->
+          <section id="font-analysis" class="docs-section">
+            <h2>Font Analysis</h2>
+            <p>Our 14-point analysis engine breaks down any font file (.ttf, .otf) or image upload into actionable typographic data.</p>
+            <ul>
+              <li><strong>Classification:</strong> Identifies if the font is Serif, Sans, Slab, Display, etc.</li>
+              <li><strong>X-Height:</strong> Measures the height of lowercase letters relative to uppercase.</li>
+              <li><strong>Contrast:</strong> Analyzes the difference between thick and thin strokes.</li>
+              <li><strong>Mood/Voice:</strong> AI-determined emotional characteristics (e.g., "Playful", "Corporate").</li>
+            </ul>
+            <p>Simply drag and drop your file onto the dashboard to begin analysis.</p>
+          </section>
+
+          <!-- Pairing Critique -->
+          <section id="pairing-critique" class="docs-section">
+            <h2>Pairing Critique</h2>
+            <p>The heart of FontPair AI. Select a primary heading font and a secondary body font to receive a detailed critique.</p>
+            <p>The AI assigns a score from <strong>1-10</strong> based on:</p>
+            <ul>
+              <li><strong>Visual Harmony:</strong> Do the shapes complement or clash?</li>
+              <li><strong>Hierarchy:</strong> Is there enough distinction between the two?</li>
+              <li><strong>Context Suitability:</strong> Is this pairing appropriate for your project type?</li>
+            </ul>
+          </section>
+
+          <!-- Glyph Comparison -->
+          <section id="glyph-comparison" class="docs-section">
+            <h2>Glyph Comparison</h2>
+            <p>Impostor shapes can ruin legibility. Our Glyph Comparison tool isolates and overlays commonly confused characters.</p>
+            <p>We automatically test:</p>
+            <ul>
+              <li><strong>I / l / 1</strong> (Uppercase I, lowercase L, number 1)</li>
+              <li><strong>0 / O</strong> (Zero vs Uppercase O)</li>
+              <li><strong>6 / b</strong> and <strong>9 / q</strong></li>
+            </ul>
+            <p>Use this feature to ensure your chosen font is safe for interface design and data-heavy applications.</p>
+          </section>
+
+          <!-- Exporting -->
+          <section id="exporting" class="docs-section">
+            <h2>Exporting</h2>
+            <h3>PDF Reports</h3>
+            <p>Generate a branded PDF report of your analysis to share with clients or stakeholders. The report includes the pairing score, sample text, and the full AI critique.</p>
+            <h3>CSS/Tailwind Export (Pro)</h3>
+            <p>Seamlessly move from design to code. Click the "Export Code" button to generate:</p>
+            <pre><code>/* Generated by FontPair AI */
+:root {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --line-height-body: 1.6;
+}</code></pre>
+          </section>
+
+          <!-- Keyboard Shortcuts -->
+          <section id="keyboard-shortcuts" class="docs-section">
+            <h2>Keyboard Shortcuts</h2>
+            <table class="docs-table">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Shortcut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Show Keyboard Shortcuts</td>
+                  <td><code>?</code> or <code>Ctrl + /</code></td>
+                </tr>
+                <tr>
+                  <td>Open Settings</td>
+                  <td><code>Ctrl + ,</code></td>
+                </tr>
+                <tr>
+                  <td>Toggle Projects Panel</td>
+                  <td><code>Ctrl + P</code></td>
+                </tr>
+                <tr>
+                  <td>Find Fonts</td>
+                  <td><code>Ctrl + F</code></td>
+                </tr>
+                <tr>
+                  <td>Restart Onboarding Tour</td>
+                  <td><code>Ctrl + O</code></td>
+                </tr>
+                <tr>
+                  <td>Close Modals</td>
+                  <td><code>Escape</code></td>
+                </tr>
+                <tr>
+                  <td>Confirm file upload</td>
+                  <td><code>Enter</code></td>
+                </tr>
+                <tr>
+                  <td>Open file selector</td>
+                  <td><code>Space</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Troubleshooting -->
+          <section id="troubleshooting" class="docs-section">
+            <h2>Troubleshooting</h2>
+            <h3>API Key Errors</h3>
+            <p>If you receive a 401 or 403 error, your API key may be expired or invalid. Check your quota at Google AI Studio. Remember the free tier has limits (15 req/min).</p>
+            <h3>Font Not Loading</h3>
+            <p>Ensure your file is a valid <code>.ttf</code>, <code>.otf</code>, or <code>.woff2</code>. Corrupted font files or unsupported formats (like older <code>.eot</code>) will be rejected.</p>
+            <h3>Support</h3>
+            <p>Still stuck? Email us at <a href="mailto:support@fontpair.ai" style="color: var(--accent);">support@fontpair.ai</a> or visit our GitHub repository.</p>
+          </section>
+
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer" style="margin-top: 0; border-top: 1px solid rgba(200, 213, 210, 0.1); position: relative; z-index: 50;">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="/" class="footer-logo" aria-label="FontPair AI Home">
+              <div class="footer-logo-backing">
+                <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+              </div>
+            </a>
+          </div>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">GitHub</a>
+            <a href="#">License Setup</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+    <script>
+      window.addEventListener('load', () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Lenis smooth scroll
+        const lenis = new Lenis({
+          duration: 1.4,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // Scroll-spy: highlight active sidebar link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.docs-sidebar a');
+
+        const observerOptions = {
+          root: null,
+          rootMargin: '-20% 0px -60% 0px',
+          threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              navLinks.forEach(link => link.classList.remove('active'));
+              const activeLink = document.querySelector(`.docs-sidebar a[href="#${entry.target.id}"]`);
+              if (activeLink) activeLink.classList.add('active');
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scroll to section on click (with offset for header)
+        navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+              lenis.scrollTo(target, { offset: -100, duration: 1.2 });
+            }
+          });
+        });
+
+        // Copy button for code blocks
+        document.querySelectorAll('pre').forEach(block => {
+          const btn = document.createElement('button');
+          btn.textContent = 'Copy';
+          btn.className = 'copy-btn';
+          btn.onclick = () => {
+            navigator.clipboard.writeText(block.textContent);
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+          };
+          block.style.position = 'relative';
+          block.appendChild(btn);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,500 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  /* 1. GLOBAL DEFAULTS (The "Paper & Teal" Base) */
+  :root {
+    --font-heading: "Playfair Display", serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  html {
+    /* scroll-behavior: smooth; */
+  }
+
+  body {
+    @apply bg-paper-base text-ink-primary font-body antialiased selection:bg-ink-vermilion selection:text-paper-base;
+    overflow-x: hidden; /* Prevent mobile menu from peeking out */
+  }
+
+  /* 2. TYPOGRAPHY */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-ink-dark tracking-tight leading-[1.1];
+  }
+
+  h1 { @apply text-6xl md:text-8xl lg:text-9xl mb-6; }
+  h2 { @apply text-4xl md:text-6xl mb-6; }
+  h3 { @apply text-3xl md:text-4xl mb-4; }
+  
+  p { @apply mb-4 leading-relaxed text-lg; }
+  
+  .lead {
+    @apply text-xl md:text-2xl font-medium text-ink-washed max-w-2xl;
+  }
+
+  /* 3. TEXTURE */
+  body::before {
+    content: "";
+    @apply fixed inset-0 z-[9999] pointer-events-none opacity-[0.06] mix-blend-overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  /* ================= UI ELEMENTS ================= */
+  
+  /* BUTTONS */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-heading font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer;
+  }
+  .btn-primary {
+    @apply bg-ink-vermilion text-paper-base border-2 border-transparent;
+    box-shadow: 0 4px 14px 0 rgba(234, 88, 12, 0.39);
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    @apply bg-accent-dark -translate-y-1;
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.5), 0 0 30px rgba(234, 88, 12, 0.3);
+  }
+  .btn-secondary {
+    @apply bg-transparent border-2 border-ink-primary text-ink-primary hover:bg-ink-primary hover:text-paper-base shadow-sm hover:shadow-md;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-ink-primary;
+    border: 1px solid rgba(15, 76, 76, 0.2);
+    transition: all 0.3s ease;
+  }
+  .btn-ghost:hover {
+    @apply bg-ink-vermilion text-paper-base border-transparent font-bold;
+    /* Critical: Override specificity issues */
+    color: #FDFBF7 !important;
+  }
+  .btn-small {
+    @apply px-4 py-2 text-sm;
+  }
+
+/* LOGO ISLAND (Fixed: Pill Shape & Size) */
+  .logo-island {
+    @apply fixed top-6 left-6 z-50 bg-paper-base text-ink-dark h-20 w-auto px-8 rounded-full flex items-center justify-center shadow-lift-md border border-ink-primary/5 transition-transform hover:scale-105;
+  }
+  .logo-island img { 
+    @apply h-10 w-auto; /* Explicit height ensures logo is readable */
+  }
+
+  /* FLOATING HEADER & MENU TOGGLE */
+  .header-floating {
+    @apply fixed top-6 right-6 z-50 bg-paper-base/95 backdrop-blur-sm rounded-full shadow-lift-md border border-ink-primary/5 flex items-center transition-all duration-300;
+    /* Explicit padding control */
+    padding: 0.75rem 2rem;
+    gap: 2rem;
+  }
+  .header-hidden { @apply -translate-y-[150%]; }
+
+  /* DESKTOP LINKS (Visible only on MD+) */
+  .header-links-desktop {
+    @apply hidden md:flex items-center gap-8;
+  }
+  .header-links-desktop a {
+    @apply font-heading font-bold text-lg text-ink-dark hover:text-ink-vermilion transition-colors;
+  }
+
+  /* MENU TOGGLE (Visible only on Mobile) */
+  .header-menu-toggle {
+    @apply w-12 h-12 flex items-center justify-center bg-paper-aged rounded-full border border-ink-primary/10 hover:bg-ink-vermilion hover:text-paper-base transition-all duration-300 cursor-pointer;
+    /* Critical: Display none on md screens */
+    display: flex;
+  }
+  /* FORCE HIDE on Desktop */
+  @media (min-width: 768px) {
+    .header-menu-toggle {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  }
+  .header-menu-toggle img {
+    @apply w-6 h-6;
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    @apply fixed inset-0 bg-paper-base translate-x-full transition-transform duration-500 ease-in-out p-8 flex flex-col;
+    z-index: 9999; /* Ensure it sits above everything else when active */
+    background-image: linear-gradient(to bottom, transparent calc(100% - 1px), #0F4C4C10 calc(100% - 1px));
+    background-size: 100% 3rem;
+  }
+  body.mobile-menu-open .mobile-menu { @apply translate-x-0; }
+  .mobile-menu-header { @apply flex justify-between items-center w-full mb-12; }
+  .mobile-menu-links { @apply flex flex-col gap-8 text-4xl font-heading font-black text-ink-dark; }
+
+  /* ================= SECTIONS ================= */
+
+  section { @apply py-24 relative overflow-hidden; }
+  .container { @apply max-w-7xl mx-auto px-6 md:px-12 w-full; }
+  .section-header { @apply text-center max-w-3xl mx-auto mb-20; }
+
+  /* HERO SECTION - THE REAL BLONDE DESK */
+  .hero {
+    position: relative;
+    /* Fallback color (while image loads) */
+    background-color: #E0CFA8;
+
+    /* The High-Res Desk Image */
+    background-image: url('../assets/desk-bg.webp');
+
+    /* Critical: Cover ensures it fills the screen, Center anchors the light */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    /* The "Table Edge" Shadow - Creates the drop-off effect */
+    box-shadow: 0 25px 50px -12px rgba(60, 50, 40, 0.6);
+
+    /* Stacking Context */
+    z-index: 10;
+    margin-bottom: 0;
+
+    /* Extra padding at bottom so objects don't get cut off by the edge */
+    padding-bottom: 8rem;
+  }
+  .hero-content { @apply grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh] relative z-10; }
+  /* 1. HERO TEXT (The highest layer) */
+  .hero-text {
+    @apply flex flex-col justify-center items-start text-left;
+    position: relative;
+    z-index: 50; /* Higher than tablet (20) */
+    pointer-events: none; /* Lets you click things behind it if needed */
+  }
+  .hero-text a {
+    pointer-events: auto; /* Re-enable buttons */
+  }
+  .hero-cta { @apply flex flex-wrap gap-4 mt-8; }
+
+  /* THE PRINT PROOF (The Hero Object) */
+  .hero-visual {
+    @apply relative flex items-center justify-center aspect-square;
+    /* Make it look like thick, creamy cotton paper */
+    background-color: #FDFBF7;
+
+    /* Physical Dimensions */
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 4px; /* Sharp, paper-like corners */
+
+    /* The "Heavy Paper" Shadow stack */
+    box-shadow:
+      /* Top highlight (thickness) */
+      inset 0 1px 0 0 rgba(255,255,255,1),
+      /* Contact shadow (sitting on desk) */
+      0 1px 3px rgba(0,0,0,0.1),
+      /* Ambient lift */
+      0 20px 40px -10px rgba(0,0,0,0.2);
+
+    /* Rotate it slightly for "casual" placement */
+    transform: rotate(-2deg);
+    z-index: 20; /* Sits above other desk items */
+  }
+
+  /* Texture for the Paper */
+  .hero-visual::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none mix-blend-multiply opacity-20;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperGrain)'/%3E%3C/svg%3E");
+  }
+
+  /* The "A" Typography */
+  .hero-letter {
+    /* Ink Bleed Effect */
+    @apply text-[15rem] md:text-[20rem] font-black text-ink-primary leading-none select-none;
+    mix-blend-mode: multiply;
+    opacity: 0.95;
+  }
+
+  /* FEATURES */
+  .features { @apply bg-paper-base; }
+  .features-grid { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full; }
+
+  /* CARDS (Standard) */
+  .card {
+    @apply relative bg-ink-primary text-paper-base p-8 rounded-2xl transition-all duration-500 border border-white/10 overflow-hidden flex flex-col;
+    /* Multi-Layered Ambient Shadow + Rim Light (Thick Cardstock Effect) */
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.05), 0 8px 32px -4px rgba(234, 88, 12, 0.15);
+    border-top: 1px solid rgba(255,255,255,0.8);
+  }
+  .card::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cardGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cardGrain)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: 0.1;
+  }
+  .card:hover {
+    @apply -translate-y-2;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.08), 0 12px 48px -4px rgba(234, 88, 12, 0.25);
+  }
+  .card::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-1 bg-ink-vermilion transform scale-x-0 transition-transform duration-500 origin-left;
+  }
+  .card:hover::before { @apply scale-x-100; }
+  .card h3 { @apply text-2xl font-heading font-bold text-paper-base mb-3; }
+  .card p { @apply text-paper-aged/80 leading-relaxed; }
+  
+  .icon-wrapper {
+    @apply w-36 h-36 rounded-xl bg-white/10 text-ink-vermilion flex items-center justify-center text-2xl mb-6 backdrop-blur-sm mx-auto;
+  }
+
+  .icon-svg {
+    @apply w-[8.7rem] h-[8.7rem] object-contain;
+  }
+
+  /* HOW IT WORKS */
+  /* Force the section below to be darker to sell the "edge" effect */
+  .how-it-works {
+    @apply bg-paper-base; /* Or a slightly darker shade if you prefer */
+    padding-top: 4rem;
+    position: relative;
+    z-index: 0;
+  }
+  .steps-container { @apply grid grid-cols-1 md:grid-cols-3 gap-8; }
+  .step { @apply text-center; }
+  .step-number {
+    @apply w-20 h-20 mx-auto mb-6 bg-paper-base border-2 border-ink-primary rounded-full flex items-center justify-center text-3xl font-heading font-bold text-ink-vermilion shadow-lift-sm;
+  }
+
+  /* DIRECTOR'S BRAIN */
+  .director-brain {
+    @apply bg-ink-dark text-paper-base py-20 border-y border-ink-primary/30;
+  }
+  .director-brain .section-header h2 {
+    @apply text-ink-vermilion;
+  }
+  .director-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto;
+  }
+
+  .director-card {
+    @apply flex flex-col relative p-8 rounded-xl text-center transition-all duration-300 overflow-hidden;
+    background: rgba(45, 78, 74, 0.3);
+    border: 1px solid rgba(45, 78, 74, 1);
+  }
+  .director-card::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='directorCardGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23directorCardGrain)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+  }
+  .director-card:hover {
+    border-color: rgba(234, 88, 12, 0.5);
+  }
+  .director-icon {
+    @apply w-36 h-36 mx-auto mb-6 flex items-center justify-center rounded-xl backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .director-icon .icon-svg {
+    @apply w-[8.7rem] h-[8.7rem] object-contain;
+  }
+  .director-card h3 {
+    @apply text-xl font-bold mb-3 text-paper-base;
+  }
+  .director-card p {
+    @apply text-paper-base/80 text-sm leading-relaxed;
+  }
+
+  /* AUDIENCE */
+  .audience { @apply bg-paper-base relative; }
+  .audience::before {
+    content: "";
+    @apply absolute inset-0 opacity-30 pointer-events-none;
+    background-image: radial-gradient(#0F4C4C10 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .audience-grid { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full; }
+  
+  .card-light {
+    @apply bg-white border border-ink-primary/10 relative overflow-hidden flex flex-col p-8 rounded-2xl;
+    /* Rim Light + Ambient Shadow (Cotton Paper Effect) */
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.05), 0 4px 16px -2px rgba(15, 76, 76, 0.08);
+  }
+  .card-light::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='lightCardGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23lightCardGrain)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+  .card-light h3 { @apply text-xl font-bold mb-3 text-ink-dark; }
+  .card-light p { @apply text-ink-washed leading-relaxed; }
+  .card-light .icon-wrapper { @apply bg-ink-vermilion/10 text-ink-vermilion w-36 h-36 text-xl mb-4 mx-auto; }
+
+  /* TECH STACK */
+  .tech-stack { @apply bg-ink-primary/5 border-t border-ink-primary/10; }
+  .tech-badges { @apply flex flex-wrap justify-center gap-4 max-w-4xl mx-auto; }
+  .tech-badge {
+    @apply bg-paper-light px-6 py-3 rounded-xl font-mono text-sm font-medium text-ink-dark shadow-lift-sm border-2 border-transparent transition-all duration-300 cursor-default;
+  }
+  .tech-badge:hover { @apply -translate-y-1 shadow-lift-md border-ink-vermilion bg-paper-base; }
+
+  /* ================= PRICING (The Fix) ================= */
+  .pricing-grid { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full; }
+
+  .notebook-sheet {
+    @apply bg-paper-aged p-8 md:p-12 rounded-sm shadow-lift-sm relative border border-ink-primary/5 my-12;
+    background-image: linear-gradient(#0F4C4C08 1px, transparent 1px);
+    background-size: 100% 2rem;
+  }
+  .notebook-sheet::before {
+    content: "";
+    @apply absolute top-0 bottom-0 left-8 w-0.5 bg-ink-vermilion/30;
+  }
+
+  .pricing-card {
+    @apply flex flex-col h-full bg-paper-base border border-ink-primary/10 p-8 rounded-2xl transition-all duration-300 relative overflow-hidden;
+    /* Rim Light + Ambient Shadow (Cotton Paper Effect) */
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.05), 0 4px 16px -2px rgba(15, 76, 76, 0.08);
+  }
+  .pricing-card::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pricingCardGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pricingCardGrain)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+  .pricing-card:hover {
+    @apply -translate-y-1 border-ink-primary/30;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.08), 0 8px 24px -4px rgba(15, 76, 76, 0.12);
+  }
+  
+  .pricing-card.popular {
+    @apply bg-ink-primary text-paper-base transform scale-105 shadow-2xl border-none relative z-10;
+    animation: float 6s ease-in-out infinite;
+  }
+  .pricing-card.popular h3, 
+  .pricing-card.popular .price,
+  .pricing-card.popular .description { 
+    @apply text-paper-base; 
+  }
+  .pricing-card.popular ul li { @apply text-paper-aged; }
+  
+  .price { @apply text-5xl font-bold font-heading mb-2 block; }
+  .price-period { @apply text-lg font-sans font-normal opacity-60; }
+  
+  .pricing-card ul { @apply my-8 space-y-3 text-ink-washed text-sm; }
+  .pricing-card li { @apply flex items-start gap-2; }
+  .pricing-card li::before { content: "✓"; @apply text-ink-vermilion font-bold; }
+
+  /* FAQ */
+  .faq-item { @apply border-b border-ink-primary/10 py-8 last:border-none; }
+  .faq-item h3 { @apply text-xl font-bold mb-3 text-ink-dark; }
+  .faq-item p { @apply text-ink-washed leading-relaxed; }
+
+  /* FINAL CTA */
+  .final-cta {
+    @apply relative bg-ink-dark text-paper-base text-center py-32 my-20 rounded-3xl mx-4 md:mx-12 overflow-hidden;
+  }
+  .final-cta::before {
+    content: "";
+    @apply absolute inset-0 opacity-20 mix-blend-overlay;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .final-cta h2 { @apply text-paper-base mb-6 relative z-10; }
+  .final-cta p { @apply text-paper-aged/80 max-w-xl mx-auto mb-10 relative z-10; }
+  .cta-actions { @apply flex justify-center gap-4 relative z-10; }
+  /* DARK CTA / PRICING EXPLAINER */
+  .final-cta-dark {
+    @apply bg-ink-dark text-paper-base py-32 relative overflow-hidden;
+  }
+  .final-cta-dark h2 { @apply text-paper-base; }
+  .final-cta-dark .lead { @apply text-paper-aged/70; }
+  
+  @keyframes float {
+    0%, 100% { transform: scale(1.05) translateY(0px); }
+    50% { transform: scale(1.05) translateY(-10px); }
+  }
+
+  /* FOOTER */
+  footer { 
+    @apply bg-ink-dark text-paper-aged py-24 border-t border-ink-primary/30 mt-24; 
+  }
+  .footer-content { 
+    @apply flex flex-col md:flex-row justify-between items-center gap-12; 
+  }
+  .footer-logo-backing { 
+    /* Increased size significantly */
+    @apply bg-paper-base w-24 h-24 rounded-full flex items-center justify-center mb-6 md:mb-0 shadow-lift-md; 
+  }
+  .footer-logo img { 
+    @apply w-14; /* Larger logo */
+  }
+  .footer-copyright {
+    @apply mt-12 text-sm opacity-40; /* Added spacing from logo */
+  }
+
+  /* ================= SPLITTEXT MASKING ================= */
+  /* SplitText needs a helper class to mask the text as it slides up */
+  .line-parent {
+    overflow: hidden;
+    padding-bottom: 0.1em; /* Prevents cutting off 'g' and 'y' */
+  }
+  .line-child {
+    will-change: transform;
+  }
+
+  /* ================= DESK OBJECTS (Static Elements) ================= */
+
+  /* REALISTIC DESK ITEMS */
+  .desk-item {
+    @apply absolute pointer-events-none select-none;
+    /* Global "Ambient" Shadow for depth */
+    filter: drop-shadow(2px 8px 12px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Specific Item Sizing (Scaled Up 1.5x) */
+  .desk-pencil {
+      @apply w-96 h-auto; /* Was w-64 */
+      filter: drop-shadow(2px 6px 8px rgba(0, 0, 0, 0.4));
+  }
+
+  .desk-eraser {
+      @apply w-32 h-auto; /* Was w-24 */
+      filter: drop-shadow(2px 5px 8px rgba(0, 0, 0, 0.3));
+  }
+
+  .desk-coffee {
+      @apply w-64 h-auto;
+      filter: drop-shadow(10px 20px 30px rgba(0, 0, 0, 0.25));
+      opacity: 0.95;
+      z-index: 0;
+  }
+
+  .desk-tablet {
+      @apply w-96 h-auto z-0; /* 20% larger: was w-80 */
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+      opacity: 0.9; /* Subtle focus depth effect */
+  }
+
+  /* POST-ITS */
+  .post-it {
+    @apply w-32 h-32 bg-[#FEF08A] p-4 flex items-center justify-center text-center text-ink-dark shadow-md;
+    font-family: 'Caveat', cursive; /* Handwriting font */
+    font-size: 1.5rem;
+    /* Curl effect (bottom-right corner) */
+    border-bottom-right-radius: 40px 5px;
+  }
+
+  .post-it-pink {
+    @apply w-40 h-40 bg-[#FBCFE8] p-4 flex items-center justify-center text-center text-ink-dark shadow-lift-md;
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    /* Different curl */
+    border-bottom-right-radius: 2px 30px;
+  }
+
+  .handwritten {
+    @apply block;
+  }
+}

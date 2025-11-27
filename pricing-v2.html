@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Flexible pricing plans for FontPair AI. Choose the plan that's right for you, from our free basic plan to our powerful pro and enterprise solutions."
+    />
+    <title>Pricing - FontPair AI</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="./output.css" />
+
+    <style>
+      /* ================================
+           CSS RESET & BASE
+        ================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        /* Paper Backgrounds - NO pure white */
+        --paper-base: #ebe6d9;
+        --paper-light: #f2efe8;
+        --paper-dark: #d4cab6;
+
+        /* Teal Accents */
+        --teal-dark: #2d4743;
+        --teal-medium: #4a6661;
+        --teal-light: #c8d5d2;
+
+        /* Text Colors */
+        --text-dark: #2b2624;
+        --text-light: #f2efe8;
+        --text-secondary: #6b6560;
+
+        /* Accent/CTA */
+        --accent: #e67e22;
+        --accent-dark: #d47c2e;
+
+        /* Spacing (8pt grid) */
+        --space-1: 8px;
+        --space-2: 16px;
+        --space-3: 24px;
+        --space-4: 32px;
+        --space-5: 40px;
+        --space-6: 48px;
+        --space-8: 64px;
+        --space-10: 80px;
+        --space-12: 96px;
+        --space-13: 104px;
+        --space-16: 128px;
+
+        /* Typography */
+        --font-heading: "Rubik", sans-serif;
+        --font-body: "IBM Plex Sans", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+
+        /* Neumorphic Shadows */
+        --shadow-sm: 2px 2px 8px rgba(43, 38, 36, 0.08);
+        --shadow-md: 4px 4px 16px rgba(43, 38, 36, 0.12);
+        --shadow-lg: 12px 12px 40px rgba(43, 38, 36, 0.18);
+        --shadow-xl: 20px 20px 60px rgba(43, 38, 36, 0.25);
+        --shadow-inset:
+          inset 2px 2px 6px rgba(43, 38, 36, 0.1),
+          inset -2px -2px 6px rgba(255, 255, 255, 0.4);
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--paper-base);
+        overflow-x: hidden;
+        position: relative;
+        /* Anti-aliasing for smoother fonts */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-smoothing: antialiased;
+      }
+
+      /* Paper Texture Overlay - REQUIRED */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+          );
+        opacity: 0.08;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        z-index: 9999;
+      }
+
+      /* ================================
+           TYPOGRAPHY
+        ================================ */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: var(--space-3);
+        letter-spacing: -0.02em;
+      }
+
+      h1 {
+        font-size: clamp(3.815rem, 8vw, 6rem);
+      }
+
+      h2 {
+        font-size: clamp(3.052rem, 6vw, 4rem);
+      }
+
+      h3 {
+        font-size: clamp(2.441rem, 4vw, 2.5rem);
+      }
+
+      h4 {
+        font-size: clamp(1.953rem, 3vw, 2rem);
+      }
+
+      p {
+        font-size: clamp(1rem, 1.5vw, 1.15rem);
+        line-height: 1.5;
+        margin-bottom: var(--space-3);
+      }
+
+      .lead {
+        font-size: clamp(1.25rem, 2vw, 1.563rem);
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--text-secondary);
+      }
+
+      /* ================================
+           CONTAINER & LAYOUT
+        ================================ */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 var(--space-3);
+      }
+
+      section {
+        padding: var(--space-10) 0;
+      }
+      
+      .section-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto var(--space-8);
+      }
+
+      /* ================================
+           BUTTONS
+        ================================ */
+      .btn {
+        display: inline-block;
+        padding: var(--space-2) var(--space-5);
+        font-family: var(--font-heading);
+        font-size: clamp(16px, 1.5vw, 18px);
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        border: none;
+        white-space: nowrap;
+        letter-spacing: 0.01em;
+        width: 100%;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--text-light);
+        box-shadow:
+          0 4px 20px rgba(230, 126, 34, 0.3),
+          var(--shadow-md);
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-dark);
+        transform: translateY(-2px);
+        box-shadow:
+          0 8px 30px rgba(230, 126, 34, 0.4),
+          var(--shadow-lg);
+      }
+
+      .btn-primary:active {
+        transform: translateY(0) scale(0.95);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-dark);
+        border: 2px solid var(--teal-medium);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-secondary:hover {
+        background: var(--teal-medium);
+        color: var(--text-light);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+      
+      /* ================================
+           PRICING PAGE
+        ================================ */
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-4);
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(4, 1fr);
+                align-items: start;
+            }
+        }
+
+        .pricing-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: var(--space-5);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-card .pin {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card.popular {
+            background: var(--teal-dark);
+            color: var(--text-light);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .pricing-card.popular .popular-badge {
+            background: var(--accent);
+            color: var(--text-light);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            align-self: flex-start;
+            margin-bottom: var(--space-3);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .pricing-card:not(.popular) {
+            background: var(--paper-light);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .pricing-card .price {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--space-1);
+        }
+
+        .pricing-card .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-card.popular .price-period {
+            color: var(--teal-light);
+        }
+
+        .pricing-card .description {
+            margin-bottom: var(--space-4);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-4) 0;
+            flex-grow: 1;
+        }
+
+        .pricing-card li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+            margin-bottom: var(--space-2);
+        }
+
+        .pricing-card li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .pricing-card .btn {
+            margin-top: auto;
+        }
+        
+        .pricing-card .guarantee {
+            font-size: 12px;
+            text-align: center;
+            margin-top: var(--space-2);
+            color: var(--text-secondary);
+        }
+        
+        .pricing-card.popular .guarantee {
+            color: var(--teal-light);
+        }
+
+        @media (min-width: 1024px) {
+            .pricing-card.popular {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* Mobile expandable cards */
+        @media (max-width: 767px) {
+            .pricing-card ul {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-in-out;
+            }
+            .pricing-card.is-expanded ul {
+                max-height: 1000px; /* Large enough to not clip content */
+            }
+            .expand-arrow {
+                display: block;
+                text-align: center;
+                margin-top: var(--space-3);
+                cursor: pointer;
+                font-weight: bold;
+            }
+            .expand-arrow::after {
+                content: 'Show Features ↓';
+            }
+            .pricing-card.is-expanded .expand-arrow::after {
+                content: 'Hide Features ↑';
+            }
+        }
+        
+        /* FAQ Section */
+        .faq-item {
+            border-bottom: 1px solid var(--paper-dark);
+            padding: var(--space-4) 0;
+        }
+        .faq-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-2);
+        }
+        .faq-item p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+        .faq-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .faq-item a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+        }
+        
+        .final-cta-dark {
+            background: var(--teal-dark);
+            color: var(--text-light);
+        }
+        
+        .final-cta-dark h2, .final-cta-dark p {
+            color: var(--text-light);
+        }
+        
+        .final-cta-dark .lead {
+            color: var(--teal-light);
+        }
+        
+        .footer {
+            background: var(--teal-dark);
+            color: var(--teal-light);
+            padding: var(--space-4) 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .notebook-sheet {
+            background-color: var(--paper-light);
+            background-image: linear-gradient(#d4cab6 1px, transparent 1px);
+            background-size: 100% 2rem; /* Matches line height */
+            padding: var(--space-8) var(--space-6);
+            box-shadow: 
+                0 0 0 1px rgba(0,0,0,0.03), /* Edge definition */
+                2px 2px 15px rgba(0,0,0,0.1), /* Lift */
+                inset 0 0 40px rgba(212, 202, 182, 0.2); /* Aged paper feel */
+            border-radius: 4px;
+            position: relative;
+            margin-bottom: var(--space-10);
+        }
+        /* The "Holes" in the paper */
+        .notebook-sheet::before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(230, 126, 34, 0.3); /* Faint margin line */
+        }
+
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "FontPair AI",
+      "description": "AI-Powered Font Pairing & Typography Analysis",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Basic",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "For personal use and exploration."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro",
+          "price": "49",
+          "priceCurrency": "USD",
+          "description": "For professional designers and developers."
+        },
+        {
+          "@type": "Offer",
+          "name": "Enterprise",
+          "price": "Contact us",
+          "priceCurrency": "USD",
+          "description": "For teams and businesses with custom needs."
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+
+    <div class="logo-island" id="logo-island">
+      <a href="/" class="header-logo" aria-label="FontPair AI Home">
+          <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+      </a>
+    </div>
+    <header class="header-floating" id="page-header">
+      <nav class="header-nav container">
+
+        <div class="header-links-desktop">
+          <a href="index.html#features">Features</a>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="docs.html">Docs</a>
+          <a href="get-started.html" class="btn btn-primary btn-small">Get Started</a>
+        </div>
+
+        <button
+          class="header-menu-toggle"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <img src="./assets/favicon.svg" alt="Menu" />
+        </button>
+      </nav>
+
+      <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
+        <div class="mobile-menu-content">
+          <div class="mobile-menu-header">
+            <a href="/" class="header-logo" aria-label="FontPair AI Home">
+              <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+            </a>
+            <button
+              class="header-menu-toggle"
+              aria-label="Close menu"
+              aria-expanded="true"
+            >
+              <img src="./assets/favicon.svg" alt="Close Menu" />
+            </button>
+          </div>
+          <div class="mobile-menu-links">
+            <a href="index.html#features">Features</a>
+            <a href="index.html#how-it-works">How It Works</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="docs.html">Docs</a>
+            <a href="get-started.html" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section style="padding-top: 0;">
+        <div class="container">
+          <div class="section-header">
+            <h1 class="font-heading text-teal-dark">Pricing</h1>
+            <p class="lead">Professional typography tools. One-time payment. No AI fees.</p>
+            <p>FontPair AI is the interface—you provide the AI (free Chrome AI or your own Gemini API key).</p>
+          </div>
+
+          <div class="notebook-sheet">
+            <div class="pricing-grid">
+                          <!-- Free Plan -->
+                          <div class="pricing-card">
+                            <div class="pin"></div>
+                            <h3>Free</h3>
+                            <p class="price">£0 <span class="price-period">/ forever</span></p>
+                            <p class="description">Try FontPair AI with full features. No credit card required.</p>
+                            <ul>
+                              <li>Complete 14-point font analysis</li>
+                              <li>Font pairing critique with scoring</li>
+                              <li>Glyph-level character comparison</li>
+                              <li>Image-based font recognition</li>
+                              <li>Accessibility scoring (WCAG)</li>
+                              <li>PDF export</li>
+                              <li>Analysis history (last 10)</li>
+                              <li>Use on 1 device</li>
+                              <li>Community support</li>
+                            </ul>
+                            <p><strong>Requires: Your own AI</strong> (free Chrome AI or Gemini API key)</p>
+                            <a href="#" class="btn btn-secondary">Download Free →</a>
+                            <div class="expand-arrow"></div>
+                          </div>
+              
+                          <!-- Professional Plan (Most Popular) -->
+                          <div class="pricing-card popular">
+                            <span class="popular-badge">Most Popular 🎯</span>
+                            <h3>Professional</h3>
+                            <p class="price">£79 <span class="price-period">/ one-time</span></p>
+                            <p class="description">Unlock power features for serious typography work.</p>
+                            <ul>
+                              <li><strong>Everything in Free, plus:</strong></li>
+                              <li>Extended analysis history (last 100 pairings)</li>
+                              <li>Batch font analysis (compare up to 10 fonts)</li>
+                              <li>Project-based workflow organization</li>
+                              <li>Enhanced PDF reports with branding options</li>
+                              <li>CSS/Tailwind export for developers</li>
+                              <li>Shareable analysis links</li>
+                              <li>Use on 3 devices</li>
+                              <li>Priority email support</li>
+                              <li><strong>All future feature updates forever</strong></li>
+                            </ul>
+                            <p><strong>Requires: Your own AI</strong> (free Chrome AI or Gemini API key)</p>
+                            <a href="#" class="btn btn-primary">Buy Professional - £79 →</a>
+                            <p class="guarantee">30-day money-back guarantee · Instant delivery</p>
+                            <div class="expand-arrow"></div>
+                          </div>
+              
+                          <!-- Studio Plan -->
+                          <div class="pricing-card">
+                            <div class="pin"></div>
+                            <h3>Studio</h3>
+                            <p class="price">£199 <span class="price-period">/ one-time</span></p>
+                            <p class="description">For design teams managing multiple client projects.</p>
+                            <ul>
+                              <li><strong>Everything in Professional, plus:</strong></li>
+                              <li>Use on 10 devices</li>
+                              <li>Team collaboration features</li>
+                              <li>Advanced typography reports</li>
+                              <li>Font DNA matching (find similar fonts)</li>
+                              <li>Type scale builder (H1-H6 system analysis)</li>
+                              <li>Compatibility matrix view</li>
+                              <li>Custom export templates</li>
+                              <li>Dedicated support channel</li>
+                            </ul>
+                            <p><strong>Requires: Your own AI</strong> (free Chrome AI or Gemini API key)</p>
+                            <a href="#" class="btn btn-secondary">Buy Studio - £199 →</a>
+                            <p class="guarantee">30-day money-back guarantee · Team billing available</p>
+                            <div class="expand-arrow"></div>
+                          </div>
+              <!-- Enterprise Plan -->
+              <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <p class="price">Custom pricing</p>
+                <p class="description">For organizations with specific requirements.</p>
+                <ul>
+                  <li><strong>Everything in Studio, plus:</strong></li>
+                  <li>Unlimited devices</li>
+                  <li>API integration support</li>
+                  <li>Custom font source integration</li>
+                  <li>SSO/SAML authentication</li>
+                  <li>Dedicated account manager</li>
+                  <li>SLA guarantee</li>
+                  <li>Custom billing & invoicing</li>
+                  <li>On-site training</li>
+                </ul>
+                <a href="#" class="btn btn-secondary">Contact Sales →</a>
+                <div class="expand-arrow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+          <div class="faq-item">
+            <h3>Why do I need to bring my own AI?</h3>
+            <p>This keeps your costs low and your data private. You control your AI usage and never pay recurring fees to us. Use free Chrome AI (built into your browser) or your own Gemini API key (15 requests/min free tier).</p>
+          </div>
+          <div class="faq-item">
+            <h3>What's Chrome AI?</h3>
+            <p>Google's built-in browser AI (experimental). It's completely free, runs locally on your device, and requires no API key. Currently available in Chrome Canary/Dev. <a href="#">Learn more →</a></p>
+          </div>
+          <div class="faq-item">
+            <h3>What if I don't have a Gemini API key?</h3>
+            <p>Get one free at <a href="https://aistudio.google.com/app/apikey">Google AI Studio</a>. The free tier includes 15 requests/min and 1M tokens/day—more than enough for daily professional use.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does the free version have limitations?</h3>
+            <p>No analysis limitations! The only difference between Free and Professional is the number of devices, history length, and advanced features like batch analysis and project organization. All AI features work the same.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What am I actually paying for?</h3>
+            <p>You're buying the software: the interface, the expert AI prompts, glyph comparison algorithms, PDF generation, analysis history, device management, and all future feature updates. The AI compute is yours to control.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why is this better than subscription tools?</h3>
+            <p>1. <strong>No recurring fees</strong> - Pay once, use forever<br>2. <strong>You control AI costs</strong> - Use free Chrome AI or your own API<br>3. <strong>Complete privacy</strong> - Your fonts go to YOUR AI, not our servers<br>4. <strong>No vendor lock-in</strong> - Even if we shut down, your license works offline with history</p>
+          </div>
+          <div class="faq-item">
+            <h3>How much does the AI cost?</h3>
+            <p>- <strong>Chrome AI</strong>: Free forever (local processing)<br>- <strong>Gemini API Free Tier</strong>: 15 req/min, 1M tokens/day = ~150-300 font analyses per day<br>- <strong>Gemini API Paid</strong>: $0.075 per 1M tokens = ~$0.0003 per analysis (basically free)</p>
+            <p>Even heavy professional use costs under £1/month for AI. You pay us once for the tool, not for every analysis.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I switch between devices?</h3>
+            <p>Yes. Professional (3 devices) and Studio (10 devices) support activating/deactivating devices as needed through your license dashboard.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What's the difference from FontBase?</h3>
+            <p>FontBase manages font files on your computer (organize, activate, preview). FontPair AI analyzes typography with AI (pairing critique, accessibility scoring, professional recommendations). Use both: FontBase to manage, FontPair AI to decide.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do you offer student discounts?</h3>
+            <p>Yes! 50% off (£39.50 for Professional) with valid student/educator ID. Email hello@neonbeacon.co.uk.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What's your refund policy?</h3>
+            <p>30-day money-back guarantee. If FontPair AI doesn't meet your needs, full refund—no questions asked.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is this really forever?</h3>
+            <p>Yes. One payment, lifetime access, all future updates. We're building a sustainable business through new tool releases, not subscription rent-seeking.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What happens if my Gemini API key expires?</h3>
+            <p>Switch to Chrome AI (free) or get a new key (free tier renews monthly). Your FontPair AI license never expires regardless of your AI choice.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="container">
+          <h2>Still unsure? Start free.</h2>
+          <p class="lead">No credit card. No AI costs (use free Chrome AI). All analysis features unlocked.</p>
+          <a href="#" class="btn btn-primary" style="max-width: 300px; margin: var(--space-4) auto 0;">Download Free Version →</a>
+          <p style="margin-top: var(--space-3);">Or get your Gemini API key in 2 minutes: <a href="https://aistudio.google.com/app/apikey" style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio →</a></p>
+        </div>
+      </section>
+
+      <section class="final-cta-dark">
+        <div class="container">
+          <h2>Why one-time pricing?</h2>
+          <p class="lead">The subscription model is broken. Designers already pay £50-200/month across multiple tools. We believe professional software should be an investment, not a recurring expense.</p>
+          <h3 style="font-size: 1.5rem; margin-top: var(--space-6);">You pay for the tool. You control the AI.</h3>
+          <ul style="list-style: none; padding: 0; display: inline-flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-4);">
+            <li>✓ No monthly fees</li>
+            <li>✓ No usage limits</li>
+            <li>✓ No vendor lock-in</li>
+            <li>✓ Complete data privacy</li>
+            <li>✓ All future updates</li>
+          </ul>
+          <p style="font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; margin-top: var(--space-6);">This is how software should work.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="/" class="footer-logo" aria-label="FontPair AI Home">
+              <div class="footer-logo-backing">
+                <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+              </div>
+            </a>
+          </div>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">GitHub</a>
+            <a href="#">License Setup</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const pricingCards = document.querySelectorAll('.pricing-card');
+
+        pricingCards.forEach(card => {
+          const expandArrow = card.querySelector('.expand-arrow');
+
+          if (expandArrow) {
+            card.addEventListener('click', (e) => {
+              if (window.innerWidth <= 767 && e.target.tagName !== 'A') {
+                // Close all other cards
+                pricingCards.forEach(otherCard => {
+                  if (otherCard !== card) {
+                    otherCard.classList.remove('is-expanded');
+                  }
+                });
+
+                // Toggle the clicked card
+                card.classList.toggle('is-expanded');
+              }
+            });
+          }
+        });
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          smoothTouch: false,
+        });
+
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+        ScrollTrigger.refresh();
+
+        // Header Animation
+        const header = document.getElementById("page-header");
+        const logoIsland = document.getElementById("logo-island");
+
+        if (header && logoIsland) {
+            header.classList.add('header-hidden');
+            logoIsland.classList.add('header-hidden');
+
+            setTimeout(() => {
+                header.classList.remove('header-hidden');
+                logoIsland.classList.remove('header-hidden');
+                header.classList.add('header-visible');
+                logoIsland.classList.add('header-visible');
+            }, 500);
+
+            let lastScrollY = 0;
+
+            lenis.on('scroll', (e) => {
+                const currentScrollY = e.scroll;
+
+                if (currentScrollY <= 100) {
+                    header.classList.remove('header-hidden');
+                    logoIsland.classList.remove('header-hidden');
+                    header.classList.add('header-visible');
+                    logoIsland.classList.add('header-visible');
+                } else if (currentScrollY > lastScrollY) {
+                    header.classList.add('header-hidden');
+                    logoIsland.classList.add('header-hidden');
+                    header.classList.remove('header-visible');
+                    logoIsland.classList.remove('header-visible');
+                } else {
+                    header.classList.remove('header-hidden');
+                    logoIsland.classList.remove('header-hidden');
+                    header.classList.add('header-visible');
+                    logoIsland.classList.add('header-visible');
+                }
+                
+                lastScrollY = currentScrollY < 0 ? 0 : currentScrollY;
+            });
+            
+            const toggleButtons = document.querySelectorAll(".header-menu-toggle");
+            const mobileMenu = document.getElementById("mobile-menu");
+            toggleButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const isExpanded = document.body.classList.toggle("mobile-menu-open");
+                    document.querySelector('.header-menu-toggle[aria-controls="mobile-menu"]').setAttribute("aria-expanded", isExpanded);
+                    if (isExpanded) {
+                        mobileMenu.querySelector("a").focus();
+                    }
+                });
+            });
+        }
+
+        // Hero Text Animation
+        gsap.set(".section-header h1, .section-header .lead, .section-header p", { opacity: 0, y: 30 });
+        gsap.to(".section-header h1, .section-header .lead, .section-header p", {
+            opacity: 1,
+            y: 0,
+            stagger: 0.15,
+            duration: 0.7,
+            ease: "power3.out",
+        });
+
+        // Notebook Sheet Animation
+        gsap.set(".notebook-sheet", { width: "80%" });
+        gsap.to(".notebook-sheet", {
+            scrollTrigger: {
+                trigger: ".notebook-sheet",
+                start: "top 85%",
+                toggleActions: "play none none none",
+            },
+            width: "100%",
+            duration: 1,
+            ease: "power3.out",
+        });
+
+        // Pricing Cards Animation
+        const cards = gsap.utils.toArray(".pricing-card");
+        gsap.set(cards, { opacity: 0, y: 50 });
+        gsap.to(cards, {
+            scrollTrigger: {
+                trigger: ".pricing-grid",
+                start: "top 80%",
+                toggleActions: "play none none none",
+            },
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 1.0,
+            ease: "power3.out",
+        });
+      });
+    </script>
+  </body>
+</html>
