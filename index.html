@@ -233,6 +233,30 @@
       </div>
     </section>
 
+    <!-- DEMO SECTION -->
+    <section class="demo" id="demo">
+      <div class="container">
+        <div class="section-header">
+          <h2>See It In Action</h2>
+          <p class="lead">
+            Watch how FontPair AI transforms your typography workflow in seconds.
+          </p>
+        </div>
+        <div class="video-container mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-ink-primary/10 relative">
+          <video
+            class="w-full h-full object-cover aspect-video"
+            controls
+            playsinline
+            preload="metadata"
+            poster=""
+          >
+            <source src="https://dumajh9xon8yphc4.public.blob.vercel-storage.com/FontPairAI%20HR.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+
     <!-- DIRECTOR'S BRAIN SECTION -->
     <section class="director-brain">
       <div class="container">
@@ -440,7 +464,7 @@
         }
 
         // 4. Scroll Reveals
-        const cards = gsap.utils.toArray(".card, .ai-mode-card, .tech-badge, .pricing-card, .step");
+        const cards = gsap.utils.toArray(".card, .ai-mode-card, .tech-badge, .pricing-card, .step, .video-container");
         gsap.set(cards, { opacity: 0, y: 50 });
 
         ScrollTrigger.batch(cards, {
