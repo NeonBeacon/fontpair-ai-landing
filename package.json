@@ -1,4 +1,5 @@
 {
+  "name": "font-pair-ai-webpage",
   "scripts": {
     "build:css": "postcss ./src/input.css -o ./output.css",
     "watch:css": "postcss ./src/input.css -o ./output.css --watch",

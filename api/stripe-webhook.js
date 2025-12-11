@@ -135,7 +135,7 @@ export default async function handler(req, res) {
         </div>
 
         <div style="padding: 20px; text-align: center; background-color: #1A3431; color: #8B7355; font-size: 12px;">
-          <p style="margin: 0;">A Neon Beacon Product</p>
+          <p style="margin: 0;">A FontPairAI Product</p>
           <p style="margin: 5px 0 0 0;">Invoice ID: ${session.id}</p>
         </div>
       </div>

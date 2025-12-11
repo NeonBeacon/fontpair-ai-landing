@@ -1,95 +1,92 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Payment successful. Welcome to FontPair AI."
-    />
-    <title>Success - FontPair AI</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Rubik:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Payment successful. Welcome to FontPair AI." />
+  <title>Success - FontPair AI</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="./output.css" />
-  </head>
-  <body>
-    <div class="logo-island" id="logo-island">
-      <a href="/" class="header-logo" aria-label="FontPair AI Home">
-          <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-      </a>
-    </div>
-    
-    <!-- Same header as others -->
-    <header class="header-floating" id="page-header">
-      <nav class="header-nav container">
-        <div class="header-links-desktop">
-          <a href="index.html#features">Features</a>
-          <a href="index.html#how-it-works">How It Works</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="docs.html">Docs</a>
-          <a href="get-started.html" class="btn btn-primary btn-small">Get Started</a>
-        </div>
-        <button
-          class="header-menu-toggle"
-          aria-label="Open menu"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-        >
-          <img src="./assets/favicon.svg" alt="Menu" />
-        </button>
-      </nav>
-    </header>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Rubik:wght@400;500;700&display=swap"
+    rel="stylesheet" />
 
-    <main>
-      <section style="padding-top: 180px; min-height: 80vh; display: flex; align-items: center;">
-        <div class="container">
-          <div class="section-header">
-            <h1>Payment Successful</h1>
-            <p class="lead" style="margin-bottom: var(--space-6);">Thank you for purchasing FontPair AI Professional.</p>
-            
-            <div style="background: var(--paper-light); border: 1px solid rgba(45, 71, 67, 0.1); border-radius: 12px; padding: var(--space-8); max-width: 600px; margin: 0 auto;">
-                <p>Your license key has been generated and sent to your email address.</p>
-                <p style="font-size: 0.9rem; color: var(--text-secondary);">Please check your inbox (and spam folder) for the receipt from Stripe. We are currently updating our system to email keys directly, but for now your receipt is your proof of purchase.</p>
-                
-                <div style="margin-top: var(--space-8);">
-                    <a href="https://app.fontpairai.com" class="btn btn-primary">Go to App Dashboard →</a>
-                </div>
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="./output.css" />
+</head>
+
+<body>
+  <div class="logo-island" id="logo-island">
+    <a href="/" class="header-logo" aria-label="FontPair AI Home">
+      <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+    </a>
+  </div>
+
+  <!-- Same header as others -->
+  <header class="header-floating" id="page-header">
+    <nav class="header-nav container">
+      <div class="header-links-desktop">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how-it-works">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="docs.html">Docs</a>
+        <a href="get-started.html" class="btn btn-primary btn-small">Get Started</a>
+      </div>
+      <button class="header-menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <img src="./assets/favicon.svg" alt="Menu" />
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section style="padding-top: 180px; min-height: 80vh; display: flex; align-items: center;">
+      <div class="container">
+        <div class="section-header">
+          <h1>Payment Successful</h1>
+          <p class="lead" style="margin-bottom: var(--space-6);">Thank you for purchasing FontPair AI Professional.</p>
+
+          <div
+            style="background: var(--paper-light); border: 1px solid rgba(45, 71, 67, 0.1); border-radius: 12px; padding: var(--space-8); max-width: 600px; margin: 0 auto;">
+            <p>Your license key has been generated and sent to your email address.</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">Please check your inbox (and spam folder) for
+              the receipt from Stripe. We are currently updating our system to email keys directly, but for now your
+              receipt is your proof of purchase.</p>
+
+            <div style="margin-top: var(--space-8);">
+              <a href="https://app.fontpairai.com" class="btn btn-primary">Go to App Dashboard →</a>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <footer class="footer" style="margin-top: 0; border-top: 1px solid rgba(200, 213, 210, 0.1);">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <a href="/" class="footer-logo" aria-label="FontPair AI Home">
-              <div class="footer-logo-backing">
-                <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-              </div>
-            </a>
-          </div>
-          <div class="footer-links">
-            <a href="#">Documentation</a>
-            <a href="#">GitHub</a>
-            <a href="#">License Setup</a>
-            <a href="#">Support</a>
-          </div>
+  <footer class="footer" style="margin-top: 0; border-top: 1px solid rgba(200, 213, 210, 0.1);">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a href="/" class="footer-logo" aria-label="FontPair AI Home">
+            <div class="footer-logo-backing">
+              <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+            </div>
+          </a>
         </div>
-        <div class="footer-copyright">
-          <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="docs.html">Docs</a>
+          <a href="docs.html#faq">FAQ</a>
+          <a href="get-started.html">Get Started</a>
+          <a href="mailto:hello@fontpairai.com">Contact</a>
         </div>
       </div>
-    </footer>
-  </body>
+      <div class="footer-copyright">
+        <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
 </html>
