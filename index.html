@@ -7,7 +7,8 @@
   <meta name="description"
     content="Free AI font pairing tool with 14-point analysis, glyph comparison, and WCAG accessibility scoring. Analyze fonts from images or files. No subscription—pay once, own forever." />
   <meta property="og:title" content="FontPair AI - AI-Powered Font Pairing & Typography Analysis" />
-  <meta property="og:description" content="Free AI font pairing tool with 14-point analysis, glyph comparison, and WCAG accessibility scoring. Analyze fonts from images or files. No subscription—pay once, own forever." />
+  <meta property="og:description"
+    content="Free AI font pairing tool with 14-point analysis, glyph comparison, and WCAG accessibility scoring. Analyze fonts from images or files. No subscription—pay once, own forever." />
   <meta property="og:image" content="https://fontpairai.com/assets/og-image.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://fontpairai.com/" />
@@ -30,7 +31,7 @@
 
 
 
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -101,8 +102,8 @@
   }
 
   .carousel-ring {
-    width: 300px;
-    height: 400px;
+    width: 800px;
+    height: 600px;
     position: relative;
     transform-style: preserve-3d;
     /* Animation handled by GSAP */
@@ -110,17 +111,20 @@
 
   .carousel-item {
     position: absolute;
-    width: 300px;
+    width: 800px;
+    left: 50%;
+    margin-left: -400px;
+    /* Center the oversized item */
     height: auto;
-    border-radius: 16px;
+    border-radius: 32px;
     background: #F2F0E9;
-    padding: 12px;
+    padding: 32px;
     box-shadow:
       0 25px 50px -12px rgba(0, 0, 0, 0.25),
       0 0 0 1px rgba(0, 77, 77, 0.1);
     cursor: pointer;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
     transform-style: preserve-3d;
     /* Transition for interactions not handled by GSAP main loop */
     transition: box-shadow 0.3s ease;
@@ -129,10 +133,13 @@
   .carousel-item img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 16px;
     display: block;
     object-fit: contain;
     background: white;
+    /* Default rendering */
+    transform: translateZ(0);
+    /* Force GPU texture */
   }
 
   .carousel-controls {
@@ -531,30 +538,39 @@
       <div class="carousel-ring">
         <!-- Item 1: Compare Fonts -->
         <div class="carousel-item" title="Compare Fonts">
-          <img src="./assets/Function UI UX screenshots/Compare Fonts screen.jpg"
+          <img src="./assets/Function UI UX screenshots/Compare Fonts screen-standard v2-1000w.jpeg"
             alt="Compare multiple fonts side-by-side">
         </div>
         <!-- Item 2: Critique Pairing -->
         <div class="carousel-item" title="Pairing Critique">
-          <img src="./assets/Function UI UX screenshots/Critique Pairing.jpg" alt="AI pairing critique scores">
+          <img src="./assets/Function UI UX screenshots/Critique Pairing-standard v2-1000w.jpeg"
+            alt="AI pairing critique scores">
+        </div>
+        <!-- Item: Glyph Comparison (New) -->
+        <div class="carousel-item" title="Glyph Analysis">
+          <img src="./assets/Function UI UX screenshots/Glyph comparison & analysis-standard v2-1000w.jpeg"
+            alt="Detailed glyph comparison and analysis">
         </div>
         <!-- Item 3: CSS Export -->
         <div class="carousel-item" title="CSS Export">
-          <img src="./assets/Function UI UX screenshots/CSS export.png" alt="Export production-ready CSS">
+          <img src="./assets/Function UI UX screenshots/CSS export-standard v2-1000w.jpeg"
+            alt="Export production-ready CSS">
         </div>
         <!-- Item 4: Recommendations -->
         <div class="carousel-item" title="Smart Recommendations">
-          <img src="./assets/Function UI UX screenshots/Custom recommendations with - pro alternatives.png"
+          <img
+            src="./assets/Function UI UX screenshots/Custom recommendations with - pro alternatives-standard v2-1000w.jpeg"
             alt="AI recommendations with pro alternatives">
         </div>
         <!-- Item 5: Find Perfect Fonts -->
         <div class="carousel-item" title="Font Finder">
-          <img src="./assets/Function UI UX screenshots/Find Perfect Fonts.jpg"
+          <img src="./assets/Function UI UX screenshots/Find Perfect Fonts-standard v2-1000w.jpeg"
             alt="Find the perfect font for your project">
         </div>
         <!-- Item 6: Search History -->
         <div class="carousel-item" title="Search History">
-          <img src="./assets/Function UI UX screenshots/Search history.png" alt="Access your complete analysis history">
+          <img src="./assets/Function UI UX screenshots/Search history-standard v2-1000w.jpeg"
+            alt="Access your complete analysis history">
         </div>
       </div>
     </div>
@@ -563,7 +579,7 @@
       <button class="carousel-btn" id="carousel-toggle" aria-label="Pause or Play Carousel">⏸</button>
       <div class="speed-control">
         <label for="speed-slider">Rotation Speed</label>
-        <input type="range" id="speed-slider" min="0.1" max="2" step="0.1" value="0.5">
+        <input type="range" id="speed-slider" min="0.1" max="2" step="0.1" value="1.0">
       </div>
     </div>
   </section>
@@ -713,7 +729,7 @@
     </div>
   </section>
 
-  
+
   <!-- FAQ SECTION -->
   <section class="faq-section" style="background: #E3DAC9; padding: 4rem 0;">
     <div class="container" style="max-width: 800px;">
@@ -721,23 +737,29 @@
         <h2>Frequently Asked Questions</h2>
       </div>
       <div class="faq-grid" style="display: grid; gap: 1.5rem;">
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
+        <div class="faq-item"
+          style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
           <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">How does the AI analysis work?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">Our AI analyzes 14 distinct typographic points including x-height, contrast, axis, and skeletal structure to provide objective compatibility scores.</p>
+          <p style="color: #2D4743; opacity: 0.8;">Our AI analyzes 14 distinct typographic points including x-height,
+            contrast, axis, and skeletal structure to provide objective compatibility scores.</p>
         </div>
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
+        <div class="faq-item"
+          style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
           <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">Is this a subscription?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">No. FontPair AI is a one-time purchase of £48.99. You own your license forever.</p>
+          <p style="color: #2D4743; opacity: 0.8;">No. FontPair AI is a one-time purchase of £48.99. You own your
+            license forever.</p>
         </div>
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
+        <div class="faq-item"
+          style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
           <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">Can I upload my own fonts?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">Yes, we support .ttf, .otf, and .woff files, as well as image uploads for font recognition.</p>
+          <p style="color: #2D4743; opacity: 0.8;">Yes, we support .ttf, .otf, and .woff files, as well as image uploads
+            for font recognition.</p>
         </div>
       </div>
     </div>
   </section>
 
-<!-- FOOTER -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-content">
@@ -891,27 +913,28 @@
       if (carouselRing) {
         const items = gsap.utils.toArray('.carousel-item');
         const itemCount = items.length;
-        const radius = 500; // Large radius for clear separation
+        const radius = 1100; // Giant Radius for 800px items
         const angleStep = 360 / itemCount;
 
         // Position items in 3D space using TransformOrigin Offset (Robust Method)
         items.forEach((item, i) => {
-          // Stagger Y position
-          const yOffset = i % 2 === 0 ? -40 : 40;
+          // Lower height position
+          const yOffset = 60;
 
           gsap.set(item, {
             // Pivot around a point 500px behind the item -> Creates ring
+            // Pivot around a point -260px behind (z=0 relative to ring)
             transformOrigin: `50% 50% ${-radius}px`,
             rotationY: i * angleStep,
-            z: 0,
+            z: radius, // Offset item so pivot falls exactly at Ring center (0,0,0)
             x: 0,
             y: yOffset,
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'visible'
           });
 
-          // 1. Independent Floating (Bobbing) - Animate Y
+          // 1. Independent Floating (Slight Bounce)
           gsap.to(item, {
-            y: yOffset + 30,
+            y: yOffset + 5, // Micro bounce (Prevent Z-fighting from large Y moves)
             duration: 2 + Math.random(),
             yoyo: true,
             repeat: -1,
@@ -919,11 +942,10 @@
             delay: Math.random() * 2
           });
 
-          // 2. Local Wobble (Planetary Spin) - Animate the CARD itself
-          // This replaces the independent image spin to prevent clipping
+          // 2. Local Sway (Slight movement)
           gsap.to(item, {
-            rotationY: angleStep * i + 25, // Wobble around the base angle
-            rotationX: 10,         // Slight tilt
+            rotationY: `+=${2}`,  // Tiny sway (Prevent overlap)
+            rotationX: `+=${1}`,  // Micro tilt
             duration: 4 + Math.random(),
             yoyo: true,
             repeat: -1,
@@ -932,11 +954,17 @@
           });
         });
 
+
         // Main Orbit
         const carouselTL = gsap.timeline({ repeat: -1 });
+
+        // Position the Whole Ring Way Back (Z=-1400)
+        // This renders the 800px cards at roughly 370px visual size (High Quality Downsampling)
+        gsap.set(carouselRing, { z: -1400 });
+
         carouselTL.to(carouselRing, {
           rotationY: -360,
-          duration: 40,
+          duration: 60, // Faster rotation
           ease: 'none'
         });
 
@@ -957,7 +985,7 @@
         }
 
         if (speedSlider) {
-          carouselTL.timeScale(0.5);
+          carouselTL.timeScale(1.0);
           speedSlider.addEventListener('input', (e) => {
             const val = parseFloat(e.target.value);
             gsap.to(carouselTL, { timeScale: val, duration: 0.5 });
