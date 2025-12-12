@@ -5,13 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Free AI font pairing tool with 14-point analysis, glyph comparison, and WCAG accessibility scoring. Analyze fonts from images or files. No subscription—pay once, own forever." />
-  <meta property="og:title" content="FontPair AI - AI-Powered Font Pairing & Typography Analysis" />
-  <meta property="og:description" content="Free AI font pairing tool with 14-point analysis, glyph comparison, and WCAG accessibility scoring. Analyze fonts from images or files. No subscription—pay once, own forever." />
-  <meta property="og:image" content="https://fontpairai.com/assets/og-image.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://fontpairai.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
+    content="FontPair AI - AI-Powered Font Pairing & Typography Analysis. Upload fonts or images for expert AI evaluation, glyph comparison, and professional pairing recommendations." />
   <title>FontPair AI - AI-Powered Font Pairing & Typography Analysis</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 
@@ -28,56 +22,6 @@
   <!-- Tailwind CSS -->
   <link rel="stylesheet" href="./output.css" />
 
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      "name": "FontPair AI",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "48.99",
-        "priceCurrency": "GBP"
-      },
-      "description": "AI-powered font analysis and pairing tool."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How does the AI analysis work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our AI analyzes 14 distinct typographic points including x-height, contrast, axis, and skeletal structure to provide objective compatibility scores."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this a subscription?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. FontPair AI is a one-time purchase of £48.99. You own your license forever."
-          }
-        },
-         {
-          "@type": "Question",
-          "name": "Can I upload my own fonts?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, we support .ttf, .otf, and .woff files, as well as image uploads for font recognition."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
 
 </head>
 <style>
@@ -207,110 +151,7 @@
     border: 2px solid #F2F0E9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
-
-  /* Kinetic Typography & Impact Effects */
-  #kinetic-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
-  }
-
-  .impact-core {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    /* White center, glowing gold edge, fading out */
-    background: radial-gradient(circle, #ffffff 40%, #ffeb3b 70%, rgba(255, 235, 59, 0) 100%);
-    transform: translate(-50%, -50%) scale(0);
-    mix-blend-mode: screen;
-    filter: drop-shadow(0 0 20px #ffeb3b);
-  }
-
-  .impact-line {
-    position: absolute;
-    width: 150px;
-    /* Initial length */
-    height: 3px;
-    background: linear-gradient(90deg, #ffffff, transparent);
-    transform-origin: left center;
-    /* Rotate from center of burst */
-    left: 0;
-    top: 0;
-    opacity: 0;
-    border-radius: 99px;
-  }
-
-  .kinetic-text {
-    position: absolute;
-    font-family: 'Caveat', cursive;
-    font-size: 5rem;
-    /* Massive size */
-    font-weight: 700;
-    color: #F2F0E9;
-    /* Hard graphic shadow for comic book feel */
-    text-shadow: 4px 4px 0px #2D4743, 6px 6px 0px #C44536;
-    white-space: nowrap;
-    transform: translate(0, -50%) scale(0) rotate(-15deg);
-    pointer-events: none;
-    z-index: 10000;
-  }
 </style>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      "name": "FontPair AI",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "48.99",
-        "priceCurrency": "GBP"
-      },
-      "description": "AI-powered font analysis and pairing tool."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How does the AI analysis work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our AI analyzes 14 distinct typographic points including x-height, contrast, axis, and skeletal structure to provide objective compatibility scores."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this a subscription?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. FontPair AI is a one-time purchase of £48.99. You own your license forever."
-          }
-        },
-         {
-          "@type": "Question",
-          "name": "Can I upload my own fonts?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, we support .ttf, .otf, and .woff files, as well as image uploads for font recognition."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
-
 </head>
 
 <body>
@@ -713,31 +554,7 @@
     </div>
   </section>
 
-  
-  <!-- FAQ SECTION -->
-  <section class="faq-section" style="background: #E3DAC9; padding: 4rem 0;">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-header text-center mb-12">
-        <h2>Frequently Asked Questions</h2>
-      </div>
-      <div class="faq-grid" style="display: grid; gap: 1.5rem;">
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
-          <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">How does the AI analysis work?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">Our AI analyzes 14 distinct typographic points including x-height, contrast, axis, and skeletal structure to provide objective compatibility scores.</p>
-        </div>
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
-          <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">Is this a subscription?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">No. FontPair AI is a one-time purchase of £48.99. You own your license forever.</p>
-        </div>
-        <div class="faq-item" style="background: #F2F0E9; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(45, 71, 67, 0.1);">
-          <h3 style="margin-bottom: 0.5rem; color: #2D4743; font-size: 1.25rem;">Can I upload my own fonts?</h3>
-          <p style="color: #2D4743; opacity: 0.8;">Yes, we support .ttf, .otf, and .woff files, as well as image uploads for font recognition.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<!-- FOOTER -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-content">
@@ -886,53 +703,64 @@
       });
 
 
+
       // 5. 3D Carousel Logic
       const carouselRing = document.querySelector('.carousel-ring');
       if (carouselRing) {
         const items = gsap.utils.toArray('.carousel-item');
         const itemCount = items.length;
-        const radius = 500; // Large radius for clear separation
+        const radius = 500; // Separation
         const angleStep = 360 / itemCount;
 
-        // Position items in 3D space using TransformOrigin Offset (Robust Method)
         items.forEach((item, i) => {
-          // Stagger Y position
-          const yOffset = i % 2 === 0 ? -40 : 40;
-
+          const angle = i * angleStep;
+          const radian = angle * (Math.PI / 180);
+          
+          // Explicit Trigonometry Placement
+          const x = radius * Math.sin(radian);
+          const z = radius * Math.cos(radian);
+          const yOffset = i % 2 === 0 ? -40 : 40; 
+          
           gsap.set(item, {
-            // Pivot around a point 500px behind the item -> Creates ring
-            transformOrigin: `50% 50% ${-radius}px`,
-            rotationY: i * angleStep,
-            z: 0,
-            x: 0,
+            x: x,
+            z: z,
             y: yOffset,
-            backfaceVisibility: 'hidden'
+            rotationY: angle,
+            transformOrigin: '50% 50%', // Center Pivot
+            backfaceVisibility: 'hidden',
+            transformStyle: 'preserve-3d'
           });
+          
+          // Image Fix: Reset z-index hacks
+          const img = item.querySelector('img');
+          if (img) gsap.set(img, { z: 0, rotationY: 0, rotationX: 0 });
 
-          // 1. Independent Floating (Bobbing) - Animate Y
+          // Float
           gsap.to(item, {
             y: yOffset + 30,
             duration: 2 + Math.random(),
             yoyo: true,
             repeat: -1,
-            ease: "sine.inOut",
+            ease: 'sine.inOut',
             delay: Math.random() * 2
           });
-
-          // 2. Local Wobble (Planetary Spin) - Animate the CARD itself
-          // This replaces the independent image spin to prevent clipping
+          
+          // Wobble (Whole Card)
           gsap.to(item, {
-            rotationY: angleStep * i + 25, // Wobble around the base angle
-            rotationX: 10,         // Slight tilt
-            duration: 4 + Math.random(),
+            rotationY: angle + 20, // Gentle oscillation
+            rotationX: 5,
+            duration: 5 + Math.random(),
             yoyo: true,
             repeat: -1,
-            ease: "sine.inOut",
+            ease: 'sine.inOut',
             delay: Math.random() * 2
           });
         });
+        
+        // Ring Position
+        gsap.set(carouselRing, { z: -radius });
 
-        // Main Orbit
+        // Orbit
         const carouselTL = gsap.timeline({ repeat: -1 });
         carouselTL.to(carouselRing, {
           rotationY: -360,
@@ -940,139 +768,36 @@
           ease: 'none'
         });
 
-        // Interactive Controls
+        // Controls
         const toggleBtn = document.querySelector('#carousel-toggle');
         const speedSlider = document.querySelector('#speed-slider');
 
         if (toggleBtn) {
           toggleBtn.addEventListener('click', () => {
-            if (carouselTL.isActive()) {
-              carouselTL.pause();
-              toggleBtn.textContent = '▶';
-            } else {
-              carouselTL.resume();
-              toggleBtn.textContent = '⏸';
-            }
+             if (carouselTL.isActive()) { carouselTL.pause(); toggleBtn.textContent = ''; } 
+             else { carouselTL.resume(); toggleBtn.textContent = ''; }
           });
         }
-
         if (speedSlider) {
-          carouselTL.timeScale(0.5);
+          carouselTL.timeScale(0.5); 
           speedSlider.addEventListener('input', (e) => {
-            const val = parseFloat(e.target.value);
-            gsap.to(carouselTL, { timeScale: val, duration: 0.5 });
+             gsap.to(carouselTL, { (timeScale: parseFloat(e.target.value)), duration: 0.5 });
           });
         }
 
-        // Hover Effect
-        // Create Kinetic Layer
-        let kineticLayer = document.getElementById('kinetic-layer');
-        if (!kineticLayer) {
-          kineticLayer = document.createElement('div');
-          kineticLayer.id = 'kinetic-layer';
-          document.body.appendChild(kineticLayer);
-        }
-
-        // Impact Effect Function
-        function spawnImpact(x, y, textContent) {
-          kineticLayer.innerHTML = '';
-
-          // 1. Core
-          const core = document.createElement('div');
-          core.className = 'impact-core';
-          core.style.left = x + 'px';
-          core.style.top = y + 'px';
-          kineticLayer.appendChild(core);
-
-          // 2. Text
-          const label = document.createElement('div');
-          label.className = 'kinetic-text';
-          label.textContent = textContent;
-          label.style.left = x + 'px';
-          label.style.top = y + 'px';
-          kineticLayer.appendChild(label);
-
-          // 3. Lines
-          const lineCount = 12;
-          const lines = [];
-          for (let i = 0; i < lineCount; i++) {
-            const line = document.createElement('div');
-            line.className = 'impact-line';
-            line.style.left = x + 'px';
-            line.style.top = y + 'px';
-            line.style.transform = `rotate(${i * (360 / lineCount)}deg)`;
-            kineticLayer.appendChild(line);
-            lines.push(line);
-          }
-
-          const tl = gsap.timeline();
-
-          // Phase 1: Impact (Flash)
-          tl.to(core, { scale: 2, opacity: 1, duration: 0.05, ease: 'power4.in' })
-            .to(lines, {
-              scaleX: 1.5,
-              x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * 100,
-              y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * 100,
-              opacity: 1,
-              duration: 0.1
-            }, 0);
-
-          // Phase 2: Reveal
-          tl.to(core, { scale: 3, opacity: 0, duration: 0.1 }, 0.05)
-            .to(label, {
-              scale: 1,
-              rotation: -5,
-              opacity: 1,
-              duration: 0.4,
-              ease: 'elastic.out(1, 0.4)'
-            }, 0.05);
-
-          // Phase 3: Aftershock
-          tl.to(lines, {
-            x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * 300,
-            y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * 300,
-            opacity: 0,
-            scaleX: 0.5,
-            duration: 0.8,
-            ease: 'power1.out'
-          }, 0.1)
-            .to(label, {
-              y: '-=10',
-              duration: 2,
-              ease: 'sine.inOut',
-              yoyo: true,
-              repeat: -1
-            }, 0.5);
-        }
-
-        // Hover Effect
+        // Hover
         items.forEach(item => {
-          item.addEventListener('mouseenter', (e) => {
-            carouselTL.pause();
-            gsap.to(item, { scale: 1.1, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
-            // Trigger Impact
-            spawnImpact(e.clientX + 50, e.clientY - 50, item.getAttribute('title'));
+          item.addEventListener('mouseenter', () => {
+             carouselTL.pause();
+             gsap.to(item, { scale: 1.1, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
           });
-
           item.addEventListener('mouseleave', () => {
-            gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
-
-            // Fade out text
-            gsap.to('#kinetic-layer', {
-              opacity: 0, duration: 0.2, onComplete: () => {
-                const layer = document.getElementById('kinetic-layer');
-                if (layer) layer.innerHTML = '';
-                layer.style.opacity = 1;
-              }
-            });
-
-            if (toggleBtn && toggleBtn.textContent === '⏸') {
-              carouselTL.resume();
-            }
+             gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
+             if (toggleBtn && toggleBtn.textContent === '') carouselTL.resume();
           });
         });
-
       }
-
     });
   </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic 3D Carousel Component</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CAROUSEL COMPONENT -->
+    <div class="carousel-stage">
+        <div class="carousel-ring">
+            <div class="carousel-item" title="Compare Fonts">
+                <img src="assets/Compare Fonts screen.jpg" alt="UI 1">
+            </div>
+            <div class="carousel-item" title="Pairing Critique">
+                <img src="assets/Critique Pairing.jpg" alt="UI 2">
+            </div>
+            <div class="carousel-item" title="CSS Export">
+                <img src="assets/CSS export.png" alt="UI 3">
+            </div>
+            <div class="carousel-item" title="Smart Recommendations">
+                <img src="assets/Custom recommendations with - pro alternatives.png" alt="UI 4">
+            </div>
+            <div class="carousel-item" title="Font Finder">
+                <img src="assets/Find Perfect Fonts.jpg" alt="UI 5">
+            </div>
+            <div class="carousel-item" title="Search History">
+                <img src="assets/Search history.png" alt="UI 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-controls">
+        <button class="carousel-btn" id="carousel-toggle">⏸</button>
+        <div class="speed-control">
+            <label for="speed-slider">Rotation Speed</label>
+            <input type="range" id="speed-slider" min="0.1" max="2" step="0.1" value="0.5">
+        </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="js/gsap.min.js"></script>
+    <!-- Component Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>

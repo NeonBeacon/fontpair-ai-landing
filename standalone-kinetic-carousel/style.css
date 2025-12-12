@@ -1,0 +1,179 @@
+/* Base Styles for Demo */
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #F2F0E9;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* 3D Carousel Section Styles */
+.carousel-stage {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+}
+
+.carousel-ring {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    transform-style: preserve-3d;
+    /* Animation handled by GSAP */
+}
+
+.carousel-item {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    border-radius: 16px;
+    background: #F2F0E9;
+    padding: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 77, 77, 0.1);
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: box-shadow 0.3s ease;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    object-fit: contain;
+    background: white;
+    pointer-events: none;
+    /* Let clicks pass to card */
+}
+
+/* Controls */
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}
+
+.carousel-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #2D4743;
+    color: #F2F0E9;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.carousel-btn:hover {
+    background: #C44536;
+    transform: scale(1.05);
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.speed-control label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: #2D4743;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.speed-control input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 4px;
+    background: rgba(45, 71, 67, 0.2);
+    border-radius: 2px;
+    outline: none;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #C44536;
+    cursor: pointer;
+    border: 2px solid #F2F0E9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Kinetic Typography & Impact Effects */
+#kinetic-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.impact-core {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* White center, glowing gold edge, fading out */
+    background: radial-gradient(circle, #ffffff 40%, #ffeb3b 70%, rgba(255, 235, 59, 0) 100%);
+    transform: translate(-50%, -50%) scale(0);
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 20px #ffeb3b);
+}
+
+.impact-line {
+    position: absolute;
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffffff, transparent);
+    transform-origin: left center;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    border-radius: 99px;
+}
+
+.kinetic-text {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    font-size: 5rem;
+    font-weight: 700;
+    color: #F2F0E9;
+    /* Hard graphic shadow for comic book feel */
+    text-shadow: 4px 4px 0px #2D4743, 6px 6px 0px #C44536;
+    white-space: nowrap;
+    transform: translate(0, -50%) scale(0) rotate(-15deg);
+    pointer-events: none;
+    z-index: 10000;
+}
