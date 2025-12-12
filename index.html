@@ -102,8 +102,8 @@
   }
 
   .carousel-ring {
-    width: 800px;
-    height: 600px;
+    width: 600px;
+    height: 450px;
     position: relative;
     transform-style: preserve-3d;
     /* Animation handled by GSAP */
@@ -111,14 +111,13 @@
 
   .carousel-item {
     position: absolute;
-    width: 800px;
+    width: 600px;
     left: 50%;
-    margin-left: -400px;
-    /* Center the oversized item */
+    margin-left: -300px;
     height: auto;
-    border-radius: 32px;
+    border-radius: 24px;
     background: #F2F0E9;
-    padding: 32px;
+    padding: 24px;
     box-shadow:
       0 25px 50px -12px rgba(0, 0, 0, 0.25),
       0 0 0 1px rgba(0, 77, 77, 0.1);
@@ -138,7 +137,8 @@
     object-fit: contain;
     background: white;
     /* Default rendering */
-    transform: translateZ(0);
+    transform: translateZ(2px);
+    /* Lift image off the card to prevent z-fighting/flicker */
     /* Force GPU texture */
   }
 
@@ -913,7 +913,7 @@
       if (carouselRing) {
         const items = gsap.utils.toArray('.carousel-item');
         const itemCount = items.length;
-        const radius = 1100; // Giant Radius for 800px items
+        const radius = 825; // Optimized High-Res (600px items)
         const angleStep = 360 / itemCount;
 
         // Position items in 3D space using TransformOrigin Offset (Robust Method)
@@ -958,9 +958,9 @@
         // Main Orbit
         const carouselTL = gsap.timeline({ repeat: -1 });
 
-        // Position the Whole Ring Way Back (Z=-1400)
-        // This renders the 800px cards at roughly 370px visual size (High Quality Downsampling)
-        gsap.set(carouselRing, { z: -1400 });
+        // Position the Whole Ring (Z=-800)
+        // 600px items at -800 Z look visually similar to prev setup but better performance
+        gsap.set(carouselRing, { z: -800 });
 
         carouselTL.to(carouselRing, {
           rotationY: -360,
