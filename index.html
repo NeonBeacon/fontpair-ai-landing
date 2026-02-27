@@ -82,7 +82,7 @@
 
 </head>
 <style>
-  /* 3D Carousel Section Styles */
+  /* 3d Carousel Section Styles */
   .carousel-section {
     background: linear-gradient(180deg, #F2F0E9 0%, #E3DAC9 100%);
     padding: 6rem 0;
@@ -106,7 +106,6 @@
     height: 450px;
     position: relative;
     transform-style: preserve-3d;
-    /* Animation handled by GSAP */
   }
 
   .carousel-item {
@@ -118,13 +117,10 @@
     border-radius: 24px;
     background: #F2F0E9;
     padding: 24px;
-    /* No shadow as requested */
     cursor: pointer;
     -webkit-backface-visibility: visible;
     backface-visibility: visible;
     transform-style: flat;
-    /* Flatten so image and background render as one texture (Fixes Z-fighting) */
-    /* Transition for interactions not handled by GSAP main loop */
     transition: box-shadow 0.3s ease;
   }
 
@@ -135,9 +131,6 @@
     display: block;
     object-fit: contain;
     background: white;
-    /* Default rendering */
-    /* Default rendering */
-    /* Force GPU texture */
   }
 
   .carousel-controls {
@@ -230,7 +223,6 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    /* White center, glowing gold edge, fading out */
     background: radial-gradient(circle, #ffffff 40%, #ffeb3b 70%, rgba(255, 235, 59, 0) 100%);
     transform: translate(-50%, -50%) scale(0);
     mix-blend-mode: screen;
@@ -240,11 +232,9 @@
   .impact-line {
     position: absolute;
     width: 150px;
-    /* Initial length */
     height: 3px;
     background: linear-gradient(90deg, #ffffff, transparent);
     transform-origin: left center;
-    /* Rotate from center of burst */
     left: 0;
     top: 0;
     opacity: 0;
@@ -268,73 +258,305 @@
 
   @media (max-width: 768px) {
     .kinetic-text {
-      font-size: 4.5rem;
-      text-shadow: 3px 3px 0px #2D4743, 5px 5px 0px #C44536;
-      /* Center it horizontally always on mobile */
+      font-size: 7rem;
+      text-shadow: 4px 4px 0px #2D4743, 7px 7px 0px #C44536;
       left: 50% !important;
       transform: translate(-50%, -50%) scale(0) rotate(-10deg);
     }
   }
 
+  @media (max-width: 480px) {
+    .kinetic-text {
+      font-size: 5.5rem;
+    }
+  }
 
-  /* ===== MOBILE MENU FIXES ===== */
+  /* ===== HAMBURGER BUTTON ===== */
+  .hamburger-btn {
+    display: none;
+    /* Hidden on desktop */
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 10002;
+    position: relative;
+  }
 
-  /* Prevent body scroll when menu open */
-  body.mobile-menu-open {
+  .hamburger-bar {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: #0F4C4C;
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.77, 0, 0.18, 1);
+    transform-origin: center;
+  }
+
+  /* Animate to X when .is-active */
+  .hamburger-btn.is-active .hamburger-bar:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+
+  .hamburger-btn.is-active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger-btn.is-active .hamburger-bar:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 767px) {
+    .hamburger-btn {
+      display: flex;
+      /* Show on mobile only */
+    }
+  }
+
+  /* ===== MOBILE MENU OVERLAY (fullscreen, OUTSIDE header) ===== */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    /* Above everything including body::before (9999) */
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .mobile-menu-overlay.is-open {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .mobile-menu-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background: #FDFBF7;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+    /* Notebook lines effect */
+    background-image: linear-gradient(to bottom, transparent calc(100% - 1px), rgba(15, 76, 76, 0.06) calc(100% - 1px));
+    background-size: 100% 3rem;
+  }
+
+  .mobile-menu-overlay.is-open .mobile-menu-panel {
+    transform: translateX(0);
+  }
+
+  /* Dim backdrop */
+  .mobile-menu-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 34, 34, 0.4);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-menu-overlay.is-open::before {
+    opacity: 1;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(15, 76, 76, 0.1);
+  }
+
+  /* Close button inside menu (already has .is-active to show X) */
+  .mobile-menu-header .hamburger-btn {
+    display: flex;
+    /* Always show inside menu */
+  }
+
+  .mobile-menu-header .hamburger-bar {
+    background: #0F4C4C;
+  }
+
+  .mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .mobile-menu-links a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #052222;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(15, 76, 76, 0.08);
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+  }
+
+  .mobile-menu-links a:hover {
+    color: #EA580C;
+    padding-left: 0.5rem;
+  }
+
+  .mobile-menu-cta {
+    margin-top: 2rem !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem !important;
+    background: #EA580C !important;
+    color: #FDFBF7 !important;
+    border-radius: 0.5rem;
+    font-size: 1.25rem !important;
+    font-weight: 700;
+    border-bottom: none !important;
+    text-align: center;
+    max-width: 220px;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-menu-cta:hover {
+    background: #C2410C !important;
+    color: #FDFBF7 !important;
+    padding-left: 2rem !important;
+  }
+
+  /* Lock body scroll when menu is open */
+  body.menu-open {
     overflow: hidden;
   }
 
-  /* Kill the body::before blend mode when menu is open so it doesn't ghost through */
-  body.mobile-menu-open::before {
-    display: none !important;
+  /* On mobile, shrink the header pill so it doesn't dominate */
+  @media (max-width: 767px) {
+    .header-floating {
+      padding: 0.5rem 0.75rem !important;
+      gap: 0 !important;
+      top: 0.75rem !important;
+      right: 0.75rem !important;
+    }
+
+    .logo-island {
+      height: 3.5rem !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      top: 0.75rem !important;
+      left: 0.75rem !important;
+    }
+
+    .logo-island img {
+      height: 1.75rem !important;
+    }
   }
 
-  /* Override the component-layer z-index — must beat body::before (9999) */
-  body.mobile-menu-open .mobile-menu {
-    z-index: 10001 !important;
-    isolation: isolate;
-    /* New stacking context — prevents any blend-mode bleed */
-  }
-
-  /* Hero text readability - dark scrim on mobile */
+  /* ===== HERO MOBILE — Reposition desk objects, don't ghost them ===== */
   @media (max-width: 1023px) {
+
+    /* Dark gradient ONLY behind the text column (left side) */
     .hero::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg,
-          rgba(5, 34, 34, 0.8) 0%,
-          rgba(5, 34, 34, 0.6) 50%,
-          rgba(5, 34, 34, 0.3) 100%);
+      top: 0;
+      left: 0;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(to right,
+          rgba(5, 34, 34, 0.7) 0%,
+          rgba(5, 34, 34, 0.4) 70%,
+          transparent 100%);
       z-index: 2;
       pointer-events: none;
     }
 
-    /* Ensure hero content sits above the scrim */
     .hero .container {
       position: relative;
       z-index: 30;
     }
 
-    /* Fade desk objects so they don't compete */
+    /* Move ALL desk objects to right half so they don't cover text */
     .desk-objects {
-      opacity: 0.25;
+      opacity: 1 !important;
+      /* KEEP THEM FULLY VISIBLE */
+    }
+
+    /* Push paper-A further right */
+    .desk-item[alt="Font Analysis"] {
+      right: -5% !important;
+      top: 10% !important;
+      width: 55% !important;
+    }
+
+    /* Tablet — bottom right */
+    .desk-tablet {
+      right: 5% !important;
+      bottom: 0% !important;
+      width: 45% !important;
+    }
+
+    /* Coffee — far right */
+    .desk-coffee {
+      right: -5% !important;
+      bottom: 5% !important;
+    }
+
+    /* Pencil — move right */
+    .desk-pencil {
+      right: 5% !important;
+      bottom: 30% !important;
+    }
+
+    /* Hide post-its on tablet — they clutter */
+    .post-it,
+    .post-it-pink {
+      display: none;
     }
   }
 
   @media (max-width: 640px) {
-    .desk-objects {
-      opacity: 0.12;
+
+    /* On small phones: objects peek from right edge as decoration */
+    .desk-item[alt="Font Analysis"] {
+      right: -15% !important;
+      width: 60% !important;
     }
 
+    .desk-tablet {
+      right: -10% !important;
+      width: 50% !important;
+    }
+
+    .desk-pencil {
+      right: -5% !important;
+    }
+
+    /* Slightly stronger text shadow for readability */
     .hero-text h1 {
       font-size: 3rem !important;
-      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7), 0 6px 40px rgba(0, 0, 0, 0.4) !important;
+      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7), 0 6px 40px rgba(0, 0, 0, 0.3) !important;
     }
 
     .hero-text .lead {
       font-size: 1.15rem !important;
-      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6) !important;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Widen the text scrim on very small screens */
+    .hero::before {
+      width: 80%;
     }
   }
 </style>
@@ -398,7 +620,6 @@
   </div>
   <header class="header-floating" id="page-header">
     <nav class="header-nav container">
-
       <div class="header-links-desktop">
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
@@ -407,50 +628,16 @@
         <a href="get-started.html" class="btn btn-ghost btn-small">Get Started</a>
       </div>
 
-      <!-- Hidden on desktop to prevent artifact -->
-      <button class="header-menu-toggle md:!hidden" aria-label="Open menu" aria-controls="mobile-menu"
+      <!-- Hamburger: CSS animated bars, NOT the favicon -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu"
         aria-expanded="false">
-        <img src="./assets/favicon.svg" alt="Menu" />
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
       </button>
     </nav>
-
-    <!-- Mobile Menu Container -->
-    <div class="mobile-menu hidden" id="mobile-menu" role="dialog" aria-modal="true">
-      <div class="mobile-menu-content">
-        <div class="mobile-menu-header">
-          <a href="/" class="header-logo" aria-label="FontPair AI Home">
-            <img src="./assets/logo-full.svg" alt="FontPair AI Logo" style="height: 2.5rem; width: auto;" />
-          </a>
-          <button class="mobile-menu-close" aria-label="Close menu" aria-expanded="true" style="
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(15, 76, 76, 0.1);
-            border-radius: 50%;
-            border: 1px solid rgba(15, 76, 76, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-          ">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F4C4C" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-        <div class="mobile-menu-links">
-          <a href="#features">Features</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="docs.html">Docs</a>
-          <a href="get-started.html" class="btn btn-ghost"
-            style="margin-top: 1rem; text-align: center; max-width: 200px;">Get Started</a>
-        </div>
-      </div>
-    </div>
   </header>
+
   <!-- HERO SECTION -->
   <section class="hero relative overflow-x-hidden min-h-[90vh] flex items-center" style="padding-bottom: 8rem;">
 
@@ -878,42 +1065,47 @@
     document.addEventListener("DOMContentLoaded", () => {
       console.log("🚀 FontPairAI Engine Starting...");
 
-      // === MOBILE MENU TOGGLE ===
-      const menuOpenBtn = document.querySelector('.header-menu-toggle');
-      const menuCloseBtn = document.querySelector('.mobile-menu-close');
-      const mobileMenu = document.getElementById('mobile-menu');
+      // === MOBILE MENU (Professional Hamburger Animation) ===
+      const hamburgerOpen = document.getElementById('hamburger-btn');
+      const hamburgerClose = document.getElementById('hamburger-close');
+      const mobileMenuOverlay = document.getElementById('mobile-menu');
 
-      function openMobileMenu() {
-        if (!mobileMenu) return;
-        mobileMenu.classList.remove('hidden');
-        // Force reflow so the translate transition actually animates
-        void mobileMenu.offsetHeight;
-        document.body.classList.add('mobile-menu-open');
+      function openMenu() {
+        if (!mobileMenuOverlay) return;
+        hamburgerOpen.classList.add('is-active');
+        mobileMenuOverlay.classList.add('is-open');
+        mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
       }
 
-      function closeMobileMenu() {
-        if (!mobileMenu) return;
-        document.body.classList.remove('mobile-menu-open');
-        // Wait for slide-out transition to finish, then hide
-        setTimeout(() => {
-          mobileMenu.classList.add('hidden');
-        }, 500);
+      function closeMenu() {
+        if (!mobileMenuOverlay) return;
+        hamburgerOpen.classList.remove('is-active');
+        mobileMenuOverlay.classList.remove('is-open');
+        mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('menu-open');
       }
 
-      if (menuOpenBtn) {
-        menuOpenBtn.addEventListener('click', openMobileMenu);
-      }
+      if (hamburgerOpen) hamburgerOpen.addEventListener('click', openMenu);
+      if (hamburgerClose) hamburgerClose.addEventListener('click', closeMenu);
 
-      if (menuCloseBtn) {
-        menuCloseBtn.addEventListener('click', closeMobileMenu);
-      }
-
-      // Close when clicking a nav link inside the menu
-      if (mobileMenu) {
-        mobileMenu.querySelectorAll('.mobile-menu-links a').forEach(link => {
-          link.addEventListener('click', closeMobileMenu);
+      // Close on backdrop click (the ::before overlay)
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', (e) => {
+          if (e.target === mobileMenuOverlay) closeMenu();
         });
       }
+
+      // Close on nav link click
+      document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
 
       // 1. Initialize Lenis (Smooth Scroll)
       const lenis = new Lenis({
