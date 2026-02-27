@@ -444,15 +444,17 @@
   /* On mobile, shrink the header pill so it doesn't dominate */
   @media (max-width: 767px) {
     .header-floating {
-      padding: 0.5rem 0.5rem !important;
+      padding: 0 !important;
+      /* Minimal padding for clean hit area */
       gap: 0 !important;
       top: 0.75rem !important;
       right: 0.75rem !important;
-      width: auto !important;
-      height: auto !important;
-      min-width: 44px;
-      min-height: 44px;
-      justify-content: center;
+      width: 48px !important;
+      /* Explicit tap target size */
+      height: 48px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     .logo-island {
@@ -461,6 +463,9 @@
       padding-right: 1rem !important;
       top: 0.75rem !important;
       left: 0.75rem !important;
+      width: auto !important;
+      max-width: 60vw !important;
+      /* Prevent overlap */
     }
 
     .logo-island img {
@@ -468,14 +473,20 @@
     }
   }
 
-  /* CRITICAL: Ensure fixed header is ABOVE the noise texture (9999) */
+  /* CRITICAL: Ensure fixed header is ABOVE the noise texture (9999) and ALL other layers */
   .header-floating,
   .logo-island {
-    z-index: 10005 !important;
+    z-index: 10000000 !important;
+    /* Extreme z-index */
+    pointer-events: auto !important;
+    isolation: isolate;
+    /* Create new stacking context */
   }
 
   .hamburger-btn {
     pointer-events: auto !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* ===== HERO MOBILE — Reposition desk objects, don't ghost them ===== */
@@ -628,30 +639,8 @@
 </head>
 
 <body>
-  <div class="logo-island" id="logo-island">
-    <a href="/" class="header-logo" aria-label="FontPair AI Home">
-      <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-    </a>
-  </div>
-  <header class="header-floating" id="page-header">
-    <nav class="header-nav">
-      <div class="header-links-desktop">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="docs.html">Docs</a>
-        <a href="get-started.html" class="btn btn-ghost btn-small">Get Started</a>
-      </div>
+  <!-- Top spacing for fixed UI elements -->
 
-      <!-- Hamburger: CSS animated bars, NOT the favicon -->
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu"
-        aria-expanded="false">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-      </button>
-    </nav>
-  </header>
 
   <!-- HERO SECTION -->
   <section class="hero relative overflow-x-hidden min-h-[90vh] flex items-center" style="padding-bottom: 8rem;">
@@ -1079,6 +1068,10 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       console.log("🚀 FontPairAI Engine Starting...");
+
+      // Ensure functions are global for fallback onclick calls
+      window.openMenu = openMenu;
+      window.closeMenu = closeMenu;
 
       // === MOBILE MENU (Professional Hamburger Animation) ===
       const hamburgerOpen = document.getElementById('hamburger-btn');
@@ -1512,3 +1505,57 @@
 
     });
   </script>
+
+  <!-- UI OVERLAYS — MUST be at end for proper stacking context -->
+  <div class="logo-island" id="logo-island">
+    <a href="/" class="header-logo" aria-label="FontPair AI Home">
+      <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+    </a>
+  </div>
+
+  <header class="header-floating" id="page-header">
+    <nav class="header-nav">
+      <div class="header-links-desktop">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="docs.html">Docs</a>
+        <a href="get-started.html" class="btn btn-ghost btn-small">Get Started</a>
+      </div>
+
+      <!-- Hamburger: CSS animated bars, NOT the favicon -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu"
+        aria-expanded="false" onclick="typeof window.openMenu === 'function' ? window.openMenu() : null">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- MOBILE MENU — MUST be a direct child of <body>, NOT inside <header> -->
+  <div class="mobile-menu-overlay" id="mobile-menu" aria-hidden="true" style="z-index: 20000000 !important;">
+    <div class="mobile-menu-panel">
+      <div class="mobile-menu-header">
+        <a href="/" aria-label="FontPair AI Home">
+          <img src="./assets/logo-full.svg" alt="FontPair AI Logo" style="height: 2.5rem; width: auto;" />
+        </a>
+        <button class="hamburger-btn is-active" id="hamburger-close" aria-label="Close menu"
+          onclick="typeof window.closeMenu === 'function' ? window.closeMenu() : null">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+      <nav class="mobile-menu-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="docs.html">Docs</a>
+        <a href="get-started.html" class="mobile-menu-cta">Get Started</a>
+      </nav>
+    </div>
+  </div>
+</body>
+
+</html>
