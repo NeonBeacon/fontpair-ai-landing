@@ -19,6 +19,201 @@
   <!-- Tailwind CSS -->
   <link rel="stylesheet" href="./output.css" />
 
+  <style>
+    /* ===== HAMBURGER BUTTON ===== */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10000001;
+      position: relative;
+      pointer-events: auto !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger-btn {
+        display: flex;
+      }
+    }
+
+    .hamburger-bar {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--teal-dark, #2D4743);
+      border-radius: 2px;
+      transition: transform 0.35s ease, opacity 0.25s ease;
+      transform-origin: center;
+    }
+
+    .hamburger-btn.is-active .hamburger-bar:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .hamburger-btn.is-active .hamburger-bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger-btn.is-active .hamburger-bar:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* ===== MOBILE MENU OVERLAY ===== */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20000000;
+      pointer-events: none;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Dark backdrop */
+    .mobile-menu-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 20, 18, 0.65);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-menu-overlay.is-open {
+      pointer-events: auto;
+    }
+
+    .mobile-menu-overlay.is-open::before {
+      opacity: 1;
+    }
+
+    /* Slide-in panel */
+    .mobile-menu-panel {
+      position: relative;
+      z-index: 1;
+      background: var(--paper-light, #F2EFE8);
+      width: min(85vw, 360px);
+      height: 100%;
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      overflow-y: auto;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .mobile-menu-overlay.is-open .mobile-menu-panel {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(15, 76, 76, 0.1);
+    }
+
+    .mobile-menu-header .hamburger-btn {
+      display: flex;
+    }
+
+    .mobile-menu-header .hamburger-bar {
+      background: #0F4C4C;
+    }
+
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-menu-links a {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #052222;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(15, 76, 76, 0.08);
+      text-decoration: none;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+
+    .mobile-menu-links a:hover {
+      color: #EA580C;
+      padding-left: 0.5rem;
+    }
+
+    .mobile-menu-cta {
+      margin-top: 2rem !important;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.5rem !important;
+      background: var(--accent, #E67E22);
+      color: #fff !important;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1rem !important;
+      font-family: 'IBM Plex Sans', sans-serif !important;
+      transition: background 0.2s ease;
+    }
+
+    .mobile-menu-cta:hover {
+      background: var(--accent-dark, #D47C2E) !important;
+      padding-left: 1.5rem !important;
+    }
+
+    /* Body scroll lock */
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    /* Shrink header pill on mobile */
+    @media (max-width: 767px) {
+      .header-floating {
+        padding: 0 !important;
+        gap: 0 !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 48px !important;
+        height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .logo-island {
+        height: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        top: 0.75rem !important;
+        left: 0.75rem !important;
+        max-width: 60vw !important;
+      }
+
+      .logo-island img {
+        height: 1.75rem !important;
+      }
+    }
+
+    .header-floating,
+    .logo-island {
+      z-index: 10000000 !important;
+      pointer-events: auto !important;
+    }
+  </style>
 
 
   <script type="application/ld+json">
@@ -47,362 +242,431 @@
     </script>
 </head>
 
-<body>
-  <div class="logo-island" id="logo-island">
-    <a href="/" class="header-logo" aria-label="FontPair AI Home">
-      <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-    </a>
-  </div>
-  <header class="header-floating" id="page-header">
-    <nav class="header-nav container">
+<!-- Header / mobile menu moved to end of body for proper z-index stacking -->
 
-      <div class="header-links-desktop">
-        <a href="index.html#features">Features</a>
-        <a href="index.html#how-it-works">How It Works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="docs.html">Docs</a>
-        <a href="get-started.html" class="btn btn-primary btn-small">Get Started</a>
-      </div>
+<main>
 
-      <button class="header-menu-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-        <img src="./assets/favicon.svg" alt="Menu" />
-      </button>
-    </nav>
-
-    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true">
-      <div class="mobile-menu-content">
-        <div class="mobile-menu-header">
-          <a href="/" class="header-logo" aria-label="FontPair AI Home">
-            <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-          </a>
-          <button class="header-menu-toggle" aria-label="Close menu" aria-expanded="true">
-            <img src="./assets/favicon.svg" alt="Close Menu" />
-          </button>
-        </div>
-        <div class="mobile-menu-links">
-          <a href="index.html#features">Features</a>
-          <a href="index.html#how-it-works">How It Works</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="docs.html">Docs</a>
-          <a href="get-started.html" class="btn btn-primary">Get Started</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section style="padding-top: 180px;">
-      <div class="container">
-        <div class="section-header">
-          <h1>Pricing</h1>
-          <p class="lead">Professional typography tools. <span class="highlight">One-time payment.</span> No AI fees.
-          </p>
-          <p>FontPair AI is the interface—you provide the AI (your own Gemini API key (free tier available)).</p>
-        </div>
-
-        <div class="notebook-sheet">
-          <div class="pricing-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto;">
-            <!-- Free Plan -->
-            <div class="pricing-card">
-              <h3>Free</h3>
-              <p class="price">£0 <span class="price-period">/ forever</span></p>
-              <p class="description">Try FontPair AI with core features. No credit card required.</p>
-              <ul>
-                <li>Single font analysis only (no pairing critique)</li>
-                <li>3 analyses per day limit</li>
-                <li>Basic glyph comparison</li>
-                <li>Analysis history (last 3)</li>
-                <li>Watermarked PDF export</li>
-                <li>Use on 1 device</li>
-                <li>Community support</li>
-              </ul>
-              <p><strong>Requires: Gemini API key</strong> (free tier available)</p>
-              <a href="#" class="btn btn-secondary">Download Free →</a>
-              <div class="expand-arrow"></div>
-            </div>
-
-            <!-- Professional Plan (Most Popular) -->
-            <div class="pricing-card popular">
-              <span class="popular-badge">Most Popular 🎯</span>
-              <h3>Professional</h3>
-              <p class="price">£48.99 <span class="price-period">/ one-time</span></p>
-              <p class="description">Unlock power features for serious typography work.</p>
-              <ul>
-                <li><strong>Everything in Free, plus:</strong></li>
-                <li>Unlimited analyses (no daily limit)</li>
-                <li><strong style="color: var(--accent);">Full pairing critique with AI scoring</strong></li>
-                <li><strong style="color: var(--accent);">Batch font analysis (compare up to 8 fonts)</strong></li>
-                <li>Complete WCAG accessibility reports</li>
-                <li>Clean branded PDF exports</li>
-                <li>CSS/Tailwind code export</li>
-                <li><strong style="color: var(--accent);">Shareable analysis links for client review</strong></li>
-                <li>Project-based organization</li>
-                <li>Extended history (last 100)</li>
-                <li>Use on 3 devices</li>
-                <li>Priority support</li>
-                <li><strong>All future feature updates forever</strong></li>
-              </ul>
-              <p><strong>Requires: Gemini API key</strong> (free tier available)</p>
-              <a href="#" onclick="buyProfessional(); return false;" class="btn btn-primary">Buy Professional - £48.99
-                →</a>
-              <p class="guarantee">30-day money-back guarantee · Instant delivery</p>
-              <div class="expand-arrow"></div>
-            </div>
-
-            <!-- Studio Plan -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container">
-      <div class="section-header">
-        <h2>Frequently Asked Questions</h2>
-      </div>
-      <div class="faq-item">
-        <h3>Why do I need to bring my own AI?</h3>
-        <p>This keeps your costs low and your data private. You control your AI usage and never pay recurring fees to
-          us. Use your own Gemini API key (15 requests/min free tier).</p>
-      </div>
-      <div class="faq-item">
-        <h3>What if I don't have a Gemini API key?</h3>
-        <p>Get one free at <a href="https://aistudio.google.com/app/apikey">Google AI Studio</a>. The free tier includes
-          15 requests/min and 1M tokens/day—more than enough for daily professional use.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does the free version have limitations?</h3>
-        <p>Yes, the free version is designed for testing. It is limited to 3 analyses per day and focuses on single font
-          analysis. To unlock pairing critiques, batch analysis, and remove daily limits, upgrade to Professional.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What am I actually paying for?</h3>
-        <p>You're buying the software: the interface, the expert AI prompts, glyph comparison algorithms, PDF
-          generation, analysis history, device management, and all future feature updates. The AI compute is yours to
-          control.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Why is this better than subscription tools?</h3>
-        <p>1. <strong>No recurring fees</strong> - Pay once, use forever<br>2. <strong>You control AI costs</strong> -
-          Use your own API<br>3. <strong>Complete privacy</strong> - Your fonts go to YOUR AI, not our servers<br>4.
-          <strong>No vendor lock-in</strong> - Even if we shut down, your license works offline with history
-        </p>
-      </div>
-      <div class="faq-item">
-        <h3>How much does the AI cost?</h3>
-        <p>- <strong>Gemini API Free Tier</strong>: 15 req/min, 1M tokens/day = ~150-300 font analyses per day<br>-
-          <strong>Gemini API Paid</strong>: $0.075 per 1M tokens = ~$0.0003 per analysis (basically free)
-        </p>
-        <p>Even heavy professional use costs under £1/month for AI. You pay us once for the tool, not for every
-          analysis.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can I switch between devices?</h3>
-        <p>Yes. Professional (3 devices) supports activating/deactivating devices as needed through your license
-          dashboard.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What's the difference from FontBase?</h3>
-        <p>FontBase manages font files on your computer (organize, activate, preview). FontPair AI analyzes typography
-          with AI (pairing critique, accessibility scoring, professional recommendations). Use both: FontBase to manage,
-          FontPair AI to decide.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do you offer student discounts?</h3>
-        <p>Yes! 50% off (~£24.50 for Professional) with valid student/educator ID. Email hello@fontpairai.com.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What's your refund policy?</h3>
-        <p>30-day money-back guarantee. If FontPair AI doesn't meet your needs, full refund—no questions asked.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Is this really forever?</h3>
-        <p>Yes. One payment, lifetime access, all future updates. We're building a sustainable business through new tool
-          releases, not subscription rent-seeking.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What happens if my Gemini API key expires?</h3>
-        <p>Get a new key (free tier renews monthly). Your FontPair AI license never expires regardless of your AI
-          choice.</p>
-      </div>
-      </div>
-    </section>
-
-    <section class="final-cta">
-      <div class="container">
-        <h2>Still unsure? Start free.</h2>
-        <p class="lead">No credit card. No AI costs. Try the core features today.</p>
-        <a href="#" class="btn btn-primary" style="max-width: 300px; margin: var(--space-4) auto 0;">Download Free
-          Version →</a>
-        <p style="margin-top: var(--space-3);">Or get your Gemini API key in 2 minutes: <a
-            href="https://aistudio.google.com/app/apikey"
-            style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio →</a></p>
-      </div>
-    </section>
-
-    <section class="final-cta-dark" style="padding-bottom: 0;">
-      <div class="container">
-        <h2>Why one-time pricing?</h2>
-        <p class="lead">The subscription model is broken. Designers already pay £50-200/month across multiple tools. We
-          believe professional software should be an investment, not a recurring expense.</p>
-        <h3 style="font-size: 1.5rem; margin-top: var(--space-6);">You pay for the tool. You control the AI.</h3>
-        <ul
-          style="list-style: none; padding: 0; display: inline-flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-4);">
-          <li>✓ No monthly fees</li>
-          <li>✓ No usage limits</li>
-          <li>✓ No vendor lock-in</li>
-          <li>✓ Complete data privacy</li>
-          <li>✓ All future updates</li>
-        </ul>
-        <p style="font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; margin-top: var(--space-6);">
-          This is how software should work.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer" style="margin-top: 0; border-top: 1px solid rgba(200, 213, 210, 0.1);">
+  <section style="padding-top: 180px;">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo" aria-label="FontPair AI Home">
-            <div class="footer-logo-backing">
-              <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
-            </div>
-          </a>
-        </div>
-        <div class="footer-links">
-          <a href="docs.html">Docs</a>
-          <a href="docs.html#faq">FAQ</a>
-          <a href="get-started.html">Get Started</a>
-          <a href="mailto:hello@fontpairai.com">Contact</a>
-        </div>
+      <div class="section-header">
+        <h1>Pricing</h1>
+        <p class="lead">Professional typography tools. <span class="highlight">One-time payment.</span> No AI fees.
+        </p>
+        <p>FontPair AI is the interface—you provide the AI (your own Gemini API key (free tier available)).</p>
       </div>
-      <div class="footer-copyright">
-        <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+
+      <div class="notebook-sheet">
+        <div class="pricing-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto;">
+          <!-- Free Plan -->
+          <div class="pricing-card">
+            <h3>Free</h3>
+            <p class="price">£0 <span class="price-period">/ forever</span></p>
+            <p class="description">Try FontPair AI with core features. No credit card required.</p>
+            <ul>
+              <li>Single font analysis only (no pairing critique)</li>
+              <li>3 analyses per day limit</li>
+              <li>Basic glyph comparison</li>
+              <li>Analysis history (last 3)</li>
+              <li>Watermarked PDF export</li>
+              <li>Use on 1 device</li>
+              <li>Community support</li>
+            </ul>
+            <p><strong>Requires: Gemini API key</strong> (free tier available)</p>
+            <a href="#" class="btn btn-secondary">Download Free →</a>
+            <div class="expand-arrow"></div>
+          </div>
+
+          <!-- Professional Plan (Most Popular) -->
+          <div class="pricing-card popular">
+            <span class="popular-badge">Most Popular 🎯</span>
+            <h3>Professional</h3>
+            <p class="price">£48.99 <span class="price-period">/ one-time</span></p>
+            <p class="description">Unlock power features for serious typography work.</p>
+            <ul>
+              <li><strong>Everything in Free, plus:</strong></li>
+              <li>Unlimited analyses (no daily limit)</li>
+              <li><strong style="color: var(--accent);">Full pairing critique with AI scoring</strong></li>
+              <li><strong style="color: var(--accent);">Batch font analysis (compare up to 8 fonts)</strong></li>
+              <li>Complete WCAG accessibility reports</li>
+              <li>Clean branded PDF exports</li>
+              <li>CSS/Tailwind code export</li>
+              <li><strong style="color: var(--accent);">Shareable analysis links for client review</strong></li>
+              <li>Project-based organization</li>
+              <li>Extended history (last 100)</li>
+              <li>Use on 3 devices</li>
+              <li>Priority support</li>
+              <li><strong>All future feature updates forever</strong></li>
+            </ul>
+            <p><strong>Requires: Gemini API key</strong> (free tier available)</p>
+            <a href="#" onclick="buyProfessional(); return false;" class="btn btn-primary">Buy Professional - £48.99
+              →</a>
+            <p class="guarantee">30-day money-back guarantee · Instant delivery</p>
+            <div class="expand-arrow"></div>
+          </div>
+
+          <!-- Studio Plan -->
+        </div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  <section class="container">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-item">
+      <h3>Why do I need to bring my own AI?</h3>
+      <p>This keeps your costs low and your data private. You control your AI usage and never pay recurring fees to
+        us. Use your own Gemini API key (15 requests/min free tier).</p>
+    </div>
+    <div class="faq-item">
+      <h3>What if I don't have a Gemini API key?</h3>
+      <p>Get one free at <a href="https://aistudio.google.com/app/apikey">Google AI Studio</a>. The free tier includes
+        15 requests/min and 1M tokens/day—more than enough for daily professional use.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does the free version have limitations?</h3>
+      <p>Yes, the free version is designed for testing. It is limited to 3 analyses per day and focuses on single font
+        analysis. To unlock pairing critiques, batch analysis, and remove daily limits, upgrade to Professional.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What am I actually paying for?</h3>
+      <p>You're buying the software: the interface, the expert AI prompts, glyph comparison algorithms, PDF
+        generation, analysis history, device management, and all future feature updates. The AI compute is yours to
+        control.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why is this better than subscription tools?</h3>
+      <p>1. <strong>No recurring fees</strong> - Pay once, use forever<br>2. <strong>You control AI costs</strong> -
+        Use your own API<br>3. <strong>Complete privacy</strong> - Your fonts go to YOUR AI, not our servers<br>4.
+        <strong>No vendor lock-in</strong> - Even if we shut down, your license works offline with history
+      </p>
+    </div>
+    <div class="faq-item">
+      <h3>How much does the AI cost?</h3>
+      <p>- <strong>Gemini API Free Tier</strong>: 15 req/min, 1M tokens/day = ~150-300 font analyses per day<br>-
+        <strong>Gemini API Paid</strong>: $0.075 per 1M tokens = ~$0.0003 per analysis (basically free)
+      </p>
+      <p>Even heavy professional use costs under £1/month for AI. You pay us once for the tool, not for every
+        analysis.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I switch between devices?</h3>
+      <p>Yes. Professional (3 devices) supports activating/deactivating devices as needed through your license
+        dashboard.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What's the difference from FontBase?</h3>
+      <p>FontBase manages font files on your computer (organize, activate, preview). FontPair AI analyzes typography
+        with AI (pairing critique, accessibility scoring, professional recommendations). Use both: FontBase to manage,
+        FontPair AI to decide.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do you offer student discounts?</h3>
+      <p>Yes! 50% off (~£24.50 for Professional) with valid student/educator ID. Email hello@fontpairai.com.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What's your refund policy?</h3>
+      <p>30-day money-back guarantee. If FontPair AI doesn't meet your needs, full refund—no questions asked.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is this really forever?</h3>
+      <p>Yes. One payment, lifetime access, all future updates. We're building a sustainable business through new tool
+        releases, not subscription rent-seeking.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What happens if my Gemini API key expires?</h3>
+      <p>Get a new key (free tier renews monthly). Your FontPair AI license never expires regardless of your AI
+        choice.</p>
+    </div>
+    </div>
+  </section>
 
-  <script>
-    async function buyProfessional() {
-      const btn = event.target;
-      const originalText = btn.textContent;
-      btn.textContent = 'Loading...';
-      try {
-        // Using the relative path as the API is in the same project now
-        // But user instructions said: fetch('https://app.fontpairai.com/api/create-checkout'
-        // I will use the absolute URL as requested, but comment that relative might be better if on the same domain.
-        // Actually, if this IS the landing page, fetching from "app.fontpairai.com" is CORS unless configured.
-        // I will stick to the exact instruction: https://app.fontpairai.com/api/create-checkout
-        const response = await fetch('/api/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-        });
-        const { url, error } = await response.json();
-        if (url) {
-          window.location.href = url;
-        } else {
-          alert('Error creating checkout: ' + (error || 'Unknown error'));
-          btn.textContent = originalText;
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Connection error. Please try again.');
+  <section class="final-cta">
+    <div class="container">
+      <h2>Still unsure? Start free.</h2>
+      <p class="lead">No credit card. No AI costs. Try the core features today.</p>
+      <a href="#" class="btn btn-primary" style="max-width: 300px; margin: var(--space-4) auto 0;">Download Free
+        Version →</a>
+      <p style="margin-top: var(--space-3);">Or get your Gemini API key in 2 minutes: <a
+          href="https://aistudio.google.com/app/apikey"
+          style="color: var(--accent); text-decoration: none; font-weight: 500;">Google AI Studio →</a></p>
+    </div>
+  </section>
+
+  <section class="final-cta-dark" style="padding-bottom: 0;">
+    <div class="container">
+      <h2>Why one-time pricing?</h2>
+      <p class="lead">The subscription model is broken. Designers already pay £50-200/month across multiple tools. We
+        believe professional software should be an investment, not a recurring expense.</p>
+      <h3 style="font-size: 1.5rem; margin-top: var(--space-6);">You pay for the tool. You control the AI.</h3>
+      <ul
+        style="list-style: none; padding: 0; display: inline-flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-4);">
+        <li>✓ No monthly fees</li>
+        <li>✓ No usage limits</li>
+        <li>✓ No vendor lock-in</li>
+        <li>✓ Complete data privacy</li>
+        <li>✓ All future updates</li>
+      </ul>
+      <p style="font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem; margin-top: var(--space-6);">
+        This is how software should work.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" style="margin-top: 0; border-top: 1px solid rgba(200, 213, 210, 0.1);">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="FontPair AI Home">
+          <div class="footer-logo-backing">
+            <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+          </div>
+        </a>
+      </div>
+      <div class="footer-links">
+        <a href="docs.html">Docs</a>
+        <a href="docs.html#faq">FAQ</a>
+        <a href="get-started.html">Get Started</a>
+        <a href="mailto:hello@fontpairai.com">Contact</a>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p>&copy; 2025 FontPair AI. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+<script>
+  async function buyProfessional() {
+    const btn = event.target;
+    const originalText = btn.textContent;
+    btn.textContent = 'Loading...';
+    try {
+      // Using the relative path as the API is in the same project now
+      // But user instructions said: fetch('https://app.fontpairai.com/api/create-checkout'
+      // I will use the absolute URL as requested, but comment that relative might be better if on the same domain.
+      // Actually, if this IS the landing page, fetching from "app.fontpairai.com" is CORS unless configured.
+      // I will stick to the exact instruction: https://app.fontpairai.com/api/create-checkout
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const { url, error } = await response.json();
+      if (url) {
+        window.location.href = url;
+      } else {
+        alert('Error creating checkout: ' + (error || 'Unknown error'));
         btn.textContent = originalText;
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Connection error. Please try again.');
+      btn.textContent = originalText;
+    }
+  }
+
+  window.addEventListener('load', () => {
+    console.log("🚀 FontPairAI Engine Starting...");
+
+    if (typeof gsap === "undefined") {
+      console.error("❌ GSAP not loaded!");
+      return;
+    }
+
+    // 1. Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+    console.log("✅ GSAP & ScrollTrigger Ready");
+
+    // 2. Initialize Lenis (Smooth Scroll)
+    if (typeof Lenis !== "undefined") {
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+      console.log("✅ Lenis Active - Smooth scroll enabled");
+    }
+
+    // 3. Hero Animation (Simple fade-up without SplitText)
+    const heroH1 = document.querySelector(".hero-text h1");
+    const heroLead = document.querySelector(".hero-text .lead");
+    const heroCta = document.querySelector(".hero-cta");
+    const heroLetter = document.querySelector(".hero-letter");
+
+    if (heroH1) {
+      console.log("✅ Animating hero section");
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(heroH1,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1.2, delay: 0.2 }
+      );
+
+      if (heroLead) {
+        tl.fromTo(heroLead,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1 },
+          "-=0.8"
+        );
+      }
+
+      if (heroCta) {
+        tl.fromTo(heroCta,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1 },
+          "-=0.7"
+        );
+      }
+
+      if (heroLetter) {
+        tl.fromTo(heroLetter,
+          { scale: 0.8, rotation: -15, opacity: 0 },
+          { scale: 1, rotation: 0, opacity: 1, duration: 1.4, ease: "elastic.out(1, 0.5)" },
+          "-=1.0"
+        );
       }
     }
 
-    window.addEventListener('load', () => {
-      console.log("🚀 FontPairAI Engine Starting...");
+    // 4. Scroll-triggered animations for cards
+    const cards = gsap.utils.toArray(".card, .ai-mode-card, .tech-badge, .pricing-card");
+    console.log("✅ Found " + cards.length + " cards");
 
-      if (typeof gsap === "undefined") {
-        console.error("❌ GSAP not loaded!");
-        return;
-      }
+    if (cards.length > 0) {
+      gsap.set(cards, { opacity: 0, y: 50 });
 
-      // 1. Register ScrollTrigger
-      gsap.registerPlugin(ScrollTrigger);
-      console.log("✅ GSAP & ScrollTrigger Ready");
-
-      // 2. Initialize Lenis (Smooth Scroll)
-      if (typeof Lenis !== "undefined") {
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        });
-
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-        console.log("✅ Lenis Active - Smooth scroll enabled");
-      }
-
-      // 3. Hero Animation (Simple fade-up without SplitText)
-      const heroH1 = document.querySelector(".hero-text h1");
-      const heroLead = document.querySelector(".hero-text .lead");
-      const heroCta = document.querySelector(".hero-cta");
-      const heroLetter = document.querySelector(".hero-letter");
-
-      if (heroH1) {
-        console.log("✅ Animating hero section");
-
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-        tl.fromTo(heroH1,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1.2, delay: 0.2 }
-        );
-
-        if (heroLead) {
-          tl.fromTo(heroLead,
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 1 },
-            "-=0.8"
-          );
+      ScrollTrigger.batch(cards, {
+        start: "top 85%",
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.15,
+            duration: 1,
+            ease: "power3.out"
+          });
         }
+      });
+    }
 
-        if (heroCta) {
-          tl.fromTo(heroCta,
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 1 },
-            "-=0.7"
-          );
+    console.log("✅ All animations initialized!");
+  });
+</script>
+
+<!-- UI OVERLAYS — MUST be at end for proper stacking context -->
+<div class="logo-island" id="logo-island">
+  <a href="/" class="header-logo" aria-label="FontPair AI Home">
+    <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+  </a>
+</div>
+
+<header class="header-floating" id="page-header">
+  <nav class="header-nav">
+    <div class="header-links-desktop">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="docs.html">Docs</a>
+      <a href="get-started.html" class="btn btn-ghost btn-small">Get Started</a>
+    </div>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open menu" aria-controls="mobile-menu"
+      aria-expanded="false" onclick="typeof window.openMenu === 'function' ? window.openMenu() : null">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </nav>
+</header>
+
+<!-- MOBILE MENU — Direct child of body, NOT inside header -->
+<div class="mobile-menu-overlay" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <a href="/" aria-label="FontPair AI Home">
+        <img src="./assets/logo-full.svg" alt="FontPair AI Logo" style="height: 2.5rem; width: auto;" />
+      </a>
+      <button class="hamburger-btn is-active" id="hamburger-close" aria-label="Close menu"
+        onclick="typeof window.closeMenu === 'function' ? window.closeMenu() : null">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+    <nav class="mobile-menu-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="docs.html">Docs</a>
+      <a href="get-started.html" class="mobile-menu-cta">Get Started</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+  // === MOBILE MENU (Professional Hamburger Animation) ===
+  function openMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('hamburger-btn');
+    if (!menu || !btn) return;
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden', 'false');
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  }
+  window.openMenu = openMenu;
+
+  function closeMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('hamburger-btn');
+    if (!menu) return;
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden', 'true');
+    if (btn) {
+      btn.classList.remove('is-active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    document.body.classList.remove('menu-open');
+  }
+  window.closeMenu = closeMenu;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerOpen = document.getElementById('hamburger-btn');
+    const hamburgerClose = document.getElementById('hamburger-close');
+    const overlay = document.getElementById('mobile-menu');
+
+    if (hamburgerOpen) hamburgerOpen.addEventListener('click', openMenu);
+    if (hamburgerClose) hamburgerClose.addEventListener('click', closeMenu);
+
+    // Close on backdrop click
+    if (overlay) {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target === overlay.querySelector('.mobile-menu-overlay::before')) {
+          closeMenu();
         }
+      });
+    }
 
-        if (heroLetter) {
-          tl.fromTo(heroLetter,
-            { scale: 0.8, rotation: -15, opacity: 0 },
-            { scale: 1, rotation: 0, opacity: 1, duration: 1.4, ease: "elastic.out(1, 0.5)" },
-            "-=1.0"
-          );
-        }
-      }
-
-      // 4. Scroll-triggered animations for cards
-      const cards = gsap.utils.toArray(".card, .ai-mode-card, .tech-badge, .pricing-card");
-      console.log("✅ Found " + cards.length + " cards");
-
-      if (cards.length > 0) {
-        gsap.set(cards, { opacity: 0, y: 50 });
-
-        ScrollTrigger.batch(cards, {
-          start: "top 85%",
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              stagger: 0.15,
-              duration: 1,
-              ease: "power3.out"
-            });
-          }
-        });
-      }
-
-      console.log("✅ All animations initialized!");
+    // Close nav links
+    document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
-  </script>
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  });
+</script>
+</body>
+
+</html>
