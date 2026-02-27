@@ -302,11 +302,11 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right,
-          rgba(5, 34, 34, 0.75) 0%,
-          rgba(5, 34, 34, 0.5) 60%,
-          transparent 100%);
-      z-index: 5;
+      background: linear-gradient(135deg,
+          rgba(5, 34, 34, 0.8) 0%,
+          rgba(5, 34, 34, 0.6) 50%,
+          rgba(5, 34, 34, 0.3) 100%);
+      z-index: 2;
       pointer-events: none;
     }
 
@@ -316,24 +316,25 @@
       z-index: 30;
     }
 
-    /* Hide desk objects on small mobile to declutter */
+    /* Fade desk objects so they don't compete */
     .desk-objects {
-      opacity: 0.3;
+      opacity: 0.25;
     }
   }
 
   @media (max-width: 640px) {
     .desk-objects {
-      opacity: 0.15;
+      opacity: 0.12;
     }
 
     .hero-text h1 {
       font-size: 3rem !important;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6), 0 4px 40px rgba(0, 0, 0, 0.3) !important;
+      text-shadow: 0 3px 20px rgba(0, 0, 0, 0.7), 0 6px 40px rgba(0, 0, 0, 0.4) !important;
     }
 
     .hero-text .lead {
-      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5) !important;
+      font-size: 1.15rem !important;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6) !important;
     }
   }
 </style>
