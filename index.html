@@ -444,10 +444,15 @@
   /* On mobile, shrink the header pill so it doesn't dominate */
   @media (max-width: 767px) {
     .header-floating {
-      padding: 0.5rem 0.75rem !important;
+      padding: 0.5rem 0.5rem !important;
       gap: 0 !important;
       top: 0.75rem !important;
       right: 0.75rem !important;
+      width: auto !important;
+      height: auto !important;
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
     }
 
     .logo-island {
@@ -461,6 +466,16 @@
     .logo-island img {
       height: 1.75rem !important;
     }
+  }
+
+  /* CRITICAL: Ensure fixed header is ABOVE the noise texture (9999) */
+  .header-floating,
+  .logo-island {
+    z-index: 10005 !important;
+  }
+
+  .hamburger-btn {
+    pointer-events: auto !important;
   }
 
   /* ===== HERO MOBILE — Reposition desk objects, don't ghost them ===== */
@@ -619,7 +634,7 @@
     </a>
   </div>
   <header class="header-floating" id="page-header">
-    <nav class="header-nav container">
+    <nav class="header-nav">
       <div class="header-links-desktop">
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
