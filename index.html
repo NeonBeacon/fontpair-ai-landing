@@ -255,15 +255,68 @@
     position: absolute;
     font-family: 'Caveat', cursive;
     font-size: 5rem;
-    /* Massive size */
     font-weight: 700;
     color: #F2F0E9;
-    /* Hard graphic shadow for comic book feel */
     text-shadow: 4px 4px 0px #2D4743, 6px 6px 0px #C44536;
     white-space: nowrap;
-    transform: translate(0, -50%) scale(0) rotate(-15deg);
+    transform: translate(-50%, -50%) scale(0) rotate(-15deg);
     pointer-events: none;
     z-index: 10000;
+    /* NEW: Ensure it stays centered on mobile */
+    max-width: 90vw;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .kinetic-text {
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 0px #2D4743, 3px 3px 0px #C44536;
+    }
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+
+  /* Hero text readability - dark scrim on mobile */
+  @media (max-width: 1023px) {
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(5, 34, 34, 0.75) 0%,
+          rgba(5, 34, 34, 0.5) 60%,
+          transparent 100%);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Ensure hero content sits above the scrim */
+    .hero .container {
+      position: relative;
+      z-index: 30;
+    }
+
+    /* Hide desk objects on small mobile to declutter */
+    .desk-objects {
+      opacity: 0.3;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .desk-objects {
+      opacity: 0.15;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem !important;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6), 0 4px 40px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .hero-text .lead {
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5) !important;
+    }
   }
 </style>
 
@@ -790,6 +843,40 @@
     document.addEventListener("DOMContentLoaded", () => {
       console.log("🚀 FontPairAI Engine Starting...");
 
+      // === MOBILE MENU TOGGLE ===
+      const menuToggles = document.querySelectorAll('.header-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      menuToggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const isOpen = document.body.classList.contains('mobile-menu-open');
+
+          if (isOpen) {
+            // Close menu
+            document.body.classList.remove('mobile-menu-open');
+            mobileMenu.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+          } else {
+            // Open menu
+            mobileMenu.classList.remove('hidden');
+            // Force reflow so transition works after removing hidden
+            mobileMenu.offsetHeight;
+            document.body.classList.add('mobile-menu-open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      // Close mobile menu when clicking a nav link
+      if (mobileMenu) {
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            document.body.classList.remove('mobile-menu-open');
+            setTimeout(() => mobileMenu.classList.add('hidden'), 500); // Wait for slide-out transition
+          });
+        });
+      }
+
       // 1. Initialize Lenis (Smooth Scroll)
       const lenis = new Lenis({
         duration: 1.2,
@@ -1003,29 +1090,46 @@
         function spawnImpact(x, y, textContent) {
           kineticLayer.innerHTML = '';
 
+          const isMobile = window.innerWidth <= 768;
+
+          // On mobile, center the impact; on desktop use click position
+          const impactX = isMobile ? window.innerWidth / 2 : x;
+          const impactY = isMobile ? y : y;
+
           // 1. Core
           const core = document.createElement('div');
           core.className = 'impact-core';
-          core.style.left = x + 'px';
-          core.style.top = y + 'px';
+          core.style.left = impactX + 'px';
+          core.style.top = impactY + 'px';
           kineticLayer.appendChild(core);
 
-          // 2. Text
+          // 2. Text — centered on mobile
           const label = document.createElement('div');
           label.className = 'kinetic-text';
           label.textContent = textContent;
-          label.style.left = x + 'px';
-          label.style.top = y + 'px';
+
+          if (isMobile) {
+            // Center horizontally, position above the carousel
+            label.style.left = '50%';
+            label.style.top = Math.max(80, impactY - 80) + 'px';
+            label.style.transform = 'translate(-50%, -50%) scale(0) rotate(-10deg)';
+          } else {
+            // Clamp to viewport on desktop too
+            const clampedX = Math.max(150, Math.min(x + 50, window.innerWidth - 150));
+            const clampedY = Math.max(80, Math.min(y - 50, window.innerHeight - 80));
+            label.style.left = clampedX + 'px';
+            label.style.top = clampedY + 'px';
+          }
           kineticLayer.appendChild(label);
 
           // 3. Lines
-          const lineCount = 12;
+          const lineCount = isMobile ? 8 : 12;
           const lines = [];
           for (let i = 0; i < lineCount; i++) {
             const line = document.createElement('div');
             line.className = 'impact-line';
-            line.style.left = x + 'px';
-            line.style.top = y + 'px';
+            line.style.left = impactX + 'px';
+            line.style.top = impactY + 'px';
             line.style.transform = `rotate(${i * (360 / lineCount)}deg)`;
             kineticLayer.appendChild(line);
             lines.push(line);
@@ -1037,8 +1141,8 @@
           tl.to(core, { scale: 2, opacity: 1, duration: 0.05, ease: 'power4.in' })
             .to(lines, {
               scaleX: 1.5,
-              x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * 100,
-              y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * 100,
+              x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * (isMobile ? 60 : 100),
+              y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * (isMobile ? 60 : 100),
               opacity: 1,
               duration: 0.1
             }, 0);
@@ -1047,7 +1151,8 @@
           tl.to(core, { scale: 3, opacity: 0, duration: 0.1 }, 0.05)
             .to(label, {
               scale: 1,
-              rotation: -5,
+              rotation: isMobile ? -5 : -5,
+              x: isMobile ? '-50%' : 0,
               opacity: 1,
               duration: 0.4,
               ease: 'elastic.out(1, 0.4)'
@@ -1055,8 +1160,8 @@
 
           // Phase 3: Aftershock
           tl.to(lines, {
-            x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * 300,
-            y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * 300,
+            x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * (isMobile ? 150 : 300),
+            y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * (isMobile ? 150 : 300),
             opacity: 0,
             scaleX: 0.5,
             duration: 0.8,
@@ -1069,33 +1174,84 @@
               yoyo: true,
               repeat: -1
             }, 0.5);
+
+          // Auto-dismiss on mobile after 2.5 seconds
+          if (isMobile) {
+            setTimeout(() => {
+              gsap.to('#kinetic-layer', {
+                opacity: 0, duration: 0.3, onComplete: () => {
+                  const layer = document.getElementById('kinetic-layer');
+                  if (layer) layer.innerHTML = '';
+                  layer.style.opacity = 1;
+                }
+              });
+            }, 2500);
+          }
         }
 
-        // Hover Effect
+        // Hover + Touch Effect for Carousel Items
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
         items.forEach(item => {
-          item.addEventListener('mouseenter', (e) => {
-            carouselTL.pause();
-            gsap.to(item, { scale: 1.1, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
-            // Trigger Impact
-            spawnImpact(e.clientX + 50, e.clientY - 50, item.getAttribute('title'));
-          });
+          if (isTouchDevice) {
+            // MOBILE: Use click/tap to toggle
+            let isActive = false;
 
-          item.addEventListener('mouseleave', () => {
-            gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
+            item.addEventListener('click', (e) => {
+              e.stopPropagation();
 
-            // Fade out text
-            gsap.to('#kinetic-layer', {
-              opacity: 0, duration: 0.2, onComplete: () => {
-                const layer = document.getElementById('kinetic-layer');
-                if (layer) layer.innerHTML = '';
-                layer.style.opacity = 1;
+              if (isActive) {
+                // Deactivate
+                gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
+                gsap.to('#kinetic-layer', {
+                  opacity: 0, duration: 0.2, onComplete: () => {
+                    const layer = document.getElementById('kinetic-layer');
+                    if (layer) layer.innerHTML = '';
+                    layer.style.opacity = 1;
+                  }
+                });
+                if (toggleBtn && toggleBtn.textContent === '⏸') carouselTL.resume();
+                isActive = false;
+              } else {
+                // Deactivate any other active items first
+                items.forEach(other => {
+                  if (other !== item && other._isActive) {
+                    gsap.to(other, { scale: 1, zIndex: 0, duration: 0.3 });
+                    other._isActive = false;
+                  }
+                });
+
+                // Activate this item
+                carouselTL.pause();
+                gsap.to(item, { scale: 1.05, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
+
+                const rect = item.getBoundingClientRect();
+                spawnImpact(rect.left + rect.width / 2, rect.top + rect.height / 2, item.getAttribute('title'));
+
+                isActive = true;
+                item._isActive = true;
               }
             });
+          } else {
+            // DESKTOP: Original mouseenter/mouseleave behavior
+            item.addEventListener('mouseenter', (e) => {
+              carouselTL.pause();
+              gsap.to(item, { scale: 1.1, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
+              spawnImpact(e.clientX + 50, e.clientY - 50, item.getAttribute('title'));
+            });
 
-            if (toggleBtn && toggleBtn.textContent === '⏸') {
-              carouselTL.resume();
-            }
-          });
+            item.addEventListener('mouseleave', () => {
+              gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
+              gsap.to('#kinetic-layer', {
+                opacity: 0, duration: 0.2, onComplete: () => {
+                  const layer = document.getElementById('kinetic-layer');
+                  if (layer) layer.innerHTML = '';
+                  layer.style.opacity = 1;
+                }
+              });
+              if (toggleBtn && toggleBtn.textContent === '⏸') carouselTL.resume();
+            });
+          }
         });
 
       }
