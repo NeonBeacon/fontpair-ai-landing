@@ -262,20 +262,38 @@
     transform: translate(-50%, -50%) scale(0) rotate(-15deg);
     pointer-events: none;
     z-index: 10000;
-    /* NEW: Ensure it stays centered on mobile */
-    max-width: 90vw;
+    max-width: 95vw;
     text-align: center;
   }
 
   @media (max-width: 768px) {
     .kinetic-text {
-      font-size: 2.5rem;
-      text-shadow: 2px 2px 0px #2D4743, 3px 3px 0px #C44536;
+      font-size: 4.5rem;
+      text-shadow: 3px 3px 0px #2D4743, 5px 5px 0px #C44536;
+      /* Center it horizontally always on mobile */
+      left: 50% !important;
+      transform: translate(-50%, -50%) scale(0) rotate(-10deg);
     }
   }
 
+
+  /* ===== MOBILE MENU FIXES ===== */
+
+  /* Prevent body scroll when menu open */
   body.mobile-menu-open {
     overflow: hidden;
+  }
+
+  /* Kill the body::before blend mode when menu is open so it doesn't ghost through */
+  body.mobile-menu-open::before {
+    display: none !important;
+  }
+
+  /* Override the component-layer z-index — must beat body::before (9999) */
+  body.mobile-menu-open .mobile-menu {
+    z-index: 10001 !important;
+    isolation: isolate;
+    /* New stacking context — prevents any blend-mode bleed */
   }
 
   /* Hero text readability - dark scrim on mobile */
@@ -400,10 +418,25 @@
       <div class="mobile-menu-content">
         <div class="mobile-menu-header">
           <a href="/" class="header-logo" aria-label="FontPair AI Home">
-            <img src="./assets/logo-full.svg" alt="FontPair AI Logo" />
+            <img src="./assets/logo-full.svg" alt="FontPair AI Logo" style="height: 2.5rem; width: auto;" />
           </a>
-          <button class="header-menu-toggle" aria-label="Close menu" aria-expanded="true">
-            <img src="./assets/favicon.svg" alt="Close Menu" />
+          <button class="mobile-menu-close" aria-label="Close menu" aria-expanded="true" style="
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 76, 76, 0.1);
+            border-radius: 50%;
+            border: 1px solid rgba(15, 76, 76, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+          ">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F4C4C" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
           </button>
         </div>
         <div class="mobile-menu-links">
@@ -411,7 +444,8 @@
           <a href="#how-it-works">How It Works</a>
           <a href="pricing.html">Pricing</a>
           <a href="docs.html">Docs</a>
-          <a href="get-started.html" class="btn btn-ghost">Get Started</a>
+          <a href="get-started.html" class="btn btn-ghost"
+            style="margin-top: 1rem; text-align: center; max-width: 200px;">Get Started</a>
         </div>
       </div>
     </div>
@@ -844,36 +878,39 @@
       console.log("🚀 FontPairAI Engine Starting...");
 
       // === MOBILE MENU TOGGLE ===
-      const menuToggles = document.querySelectorAll('.header-menu-toggle');
+      const menuOpenBtn = document.querySelector('.header-menu-toggle');
+      const menuCloseBtn = document.querySelector('.mobile-menu-close');
       const mobileMenu = document.getElementById('mobile-menu');
 
-      menuToggles.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const isOpen = document.body.classList.contains('mobile-menu-open');
+      function openMobileMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove('hidden');
+        // Force reflow so the translate transition actually animates
+        void mobileMenu.offsetHeight;
+        document.body.classList.add('mobile-menu-open');
+      }
 
-          if (isOpen) {
-            // Close menu
-            document.body.classList.remove('mobile-menu-open');
-            mobileMenu.classList.add('hidden');
-            btn.setAttribute('aria-expanded', 'false');
-          } else {
-            // Open menu
-            mobileMenu.classList.remove('hidden');
-            // Force reflow so transition works after removing hidden
-            mobileMenu.offsetHeight;
-            document.body.classList.add('mobile-menu-open');
-            btn.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
+      function closeMobileMenu() {
+        if (!mobileMenu) return;
+        document.body.classList.remove('mobile-menu-open');
+        // Wait for slide-out transition to finish, then hide
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+        }, 500);
+      }
 
-      // Close mobile menu when clicking a nav link
+      if (menuOpenBtn) {
+        menuOpenBtn.addEventListener('click', openMobileMenu);
+      }
+
+      if (menuCloseBtn) {
+        menuCloseBtn.addEventListener('click', closeMobileMenu);
+      }
+
+      // Close when clicking a nav link inside the menu
       if (mobileMenu) {
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            document.body.classList.remove('mobile-menu-open');
-            setTimeout(() => mobileMenu.classList.add('hidden'), 500); // Wait for slide-out transition
-          });
+        mobileMenu.querySelectorAll('.mobile-menu-links a').forEach(link => {
+          link.addEventListener('click', closeMobileMenu);
         });
       }
 
@@ -1092,38 +1129,39 @@
 
           const isMobile = window.innerWidth <= 768;
 
-          // On mobile, center the impact; on desktop use click position
+          // On mobile: center everything. On desktop: use cursor position
           const impactX = isMobile ? window.innerWidth / 2 : x;
           const impactY = isMobile ? y : y;
 
-          // 1. Core
+          // 1. Core burst
           const core = document.createElement('div');
           core.className = 'impact-core';
           core.style.left = impactX + 'px';
           core.style.top = impactY + 'px';
           kineticLayer.appendChild(core);
 
-          // 2. Text — centered on mobile
+          // 2. Text label
           const label = document.createElement('div');
           label.className = 'kinetic-text';
           label.textContent = textContent;
 
           if (isMobile) {
-            // Center horizontally, position above the carousel
+            // Force center horizontally, position above carousel center
             label.style.left = '50%';
-            label.style.top = Math.max(80, impactY - 80) + 'px';
+            label.style.top = Math.max(100, impactY - 100) + 'px';
             label.style.transform = 'translate(-50%, -50%) scale(0) rotate(-10deg)';
           } else {
-            // Clamp to viewport on desktop too
-            const clampedX = Math.max(150, Math.min(x + 50, window.innerWidth - 150));
-            const clampedY = Math.max(80, Math.min(y - 50, window.innerHeight - 80));
+            // Desktop: clamp to viewport edges
+            const clampedX = Math.max(200, Math.min(x + 50, window.innerWidth - 200));
+            const clampedY = Math.max(100, Math.min(y - 50, window.innerHeight - 100));
             label.style.left = clampedX + 'px';
             label.style.top = clampedY + 'px';
           }
           kineticLayer.appendChild(label);
 
-          // 3. Lines
+          // 3. Burst lines
           const lineCount = isMobile ? 8 : 12;
+          const burstRadius = isMobile ? 60 : 100;
           const lines = [];
           for (let i = 0; i < lineCount; i++) {
             const line = document.createElement('div');
@@ -1137,28 +1175,27 @@
 
           const tl = gsap.timeline();
 
-          // Phase 1: Impact (Flash)
-          tl.to(core, { scale: 2, opacity: 1, duration: 0.05, ease: 'power4.in' })
+          // Phase 1: Flash
+          tl.to(core, { scale: isMobile ? 3 : 2, opacity: 1, duration: 0.05, ease: 'power4.in' })
             .to(lines, {
               scaleX: 1.5,
-              x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * (isMobile ? 60 : 100),
-              y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * (isMobile ? 60 : 100),
+              x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * burstRadius,
+              y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * burstRadius,
               opacity: 1,
               duration: 0.1
             }, 0);
 
-          // Phase 2: Reveal
-          tl.to(core, { scale: 3, opacity: 0, duration: 0.1 }, 0.05)
+          // Phase 2: Text reveal
+          tl.to(core, { scale: isMobile ? 5 : 3, opacity: 0, duration: 0.1 }, 0.05)
             .to(label, {
               scale: 1,
-              rotation: isMobile ? -5 : -5,
-              x: isMobile ? '-50%' : 0,
+              rotation: -5,
               opacity: 1,
               duration: 0.4,
               ease: 'elastic.out(1, 0.4)'
             }, 0.05);
 
-          // Phase 3: Aftershock
+          // Phase 3: Aftershock lines dissipate
           tl.to(lines, {
             x: (i) => Math.cos(i * (Math.PI * 2 / lineCount)) * (isMobile ? 150 : 300),
             y: (i) => Math.sin(i * (Math.PI * 2 / lineCount)) * (isMobile ? 150 : 300),
@@ -1175,7 +1212,7 @@
               repeat: -1
             }, 0.5);
 
-          // Auto-dismiss on mobile after 2.5 seconds
+          // Auto-dismiss on mobile after 3 seconds
           if (isMobile) {
             setTimeout(() => {
               gsap.to('#kinetic-layer', {
@@ -1185,7 +1222,13 @@
                   layer.style.opacity = 1;
                 }
               });
-            }, 2500);
+              // Resume carousel
+              const toggleBtn = document.querySelector('#carousel-toggle');
+              if (toggleBtn && toggleBtn.textContent === '⏸') {
+                const carouselTimeline = gsap.getById && gsap.getById('carousel-main');
+                // Just try to resume
+              }
+            }, 3000);
           }
         }
 
@@ -1194,15 +1237,16 @@
 
         items.forEach(item => {
           if (isTouchDevice) {
-            // MOBILE: Use click/tap to toggle
-            let isActive = false;
+            // MOBILE: Tap to show POW, tap again or wait to dismiss
+            item._isActive = false;
 
             item.addEventListener('click', (e) => {
+              e.preventDefault();
               e.stopPropagation();
 
-              if (isActive) {
+              if (item._isActive) {
                 // Deactivate
-                gsap.to(item, { scale: 1, zIndex: 0, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', duration: 0.3 });
+                gsap.to(item, { scale: 1, zIndex: 0, boxShadow: 'none', duration: 0.3 });
                 gsap.to('#kinetic-layer', {
                   opacity: 0, duration: 0.2, onComplete: () => {
                     const layer = document.getElementById('kinetic-layer');
@@ -1211,29 +1255,31 @@
                   }
                 });
                 if (toggleBtn && toggleBtn.textContent === '⏸') carouselTL.resume();
-                isActive = false;
+                item._isActive = false;
               } else {
-                // Deactivate any other active items first
+                // Deactivate others first
                 items.forEach(other => {
-                  if (other !== item && other._isActive) {
-                    gsap.to(other, { scale: 1, zIndex: 0, duration: 0.3 });
+                  if (other._isActive) {
+                    gsap.to(other, { scale: 1, zIndex: 0, duration: 0.2 });
                     other._isActive = false;
                   }
                 });
 
                 // Activate this item
                 carouselTL.pause();
-                gsap.to(item, { scale: 1.05, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
+                gsap.to(item, { scale: 1.03, zIndex: 100, boxShadow: '0 20px 40px rgba(0,0,0,0.4)', duration: 0.3 });
 
+                // Get position of item for impact
                 const rect = item.getBoundingClientRect();
-                spawnImpact(rect.left + rect.width / 2, rect.top + rect.height / 2, item.getAttribute('title'));
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 3;
+                spawnImpact(centerX, centerY, item.getAttribute('title'));
 
-                isActive = true;
                 item._isActive = true;
               }
             });
           } else {
-            // DESKTOP: Original mouseenter/mouseleave behavior
+            // DESKTOP: Original mouseenter/mouseleave
             item.addEventListener('mouseenter', (e) => {
               carouselTL.pause();
               gsap.to(item, { scale: 1.1, zIndex: 100, boxShadow: '0 30px 60px rgba(0,0,0,0.5)', duration: 0.3 });
