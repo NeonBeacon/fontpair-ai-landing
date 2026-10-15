@@ -127,8 +127,9 @@ export default async function handler(req, res) {
           <div style="background-color: #e6f2f2; padding: 20px; border-radius: 8px;">
             <p style="margin: 0; font-size: 14px; font-weight: bold; margin-bottom: 10px;">Quick Start:</p>
             <ol style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.6;">
-              <li>Click the button above to open the app.</li>
-              <li>Paste your key into the activation screen.</li>
+              <li>Get your free Google Gemini key at <a href="https://aistudio.google.com/app/apikey" style="color: #D47C2E;">aistudio.google.com/app/apikey</a> (about 2 minutes). FontPair AI runs on your own key, so there are no AI fees from us.</li>
+              <li>Click the button above and paste your licence key into the activation screen.</li>
+              <li>Open Settings (gear icon, top right), paste your Gemini key and press Save.</li>
               <li>Start pairing fonts.</li>
             </ol>
           </div>
